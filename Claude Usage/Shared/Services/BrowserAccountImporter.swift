@@ -67,6 +67,7 @@ enum BrowserAccountImporter {
         updated.organizationId = orgId
         updated.isSelectedForDisplay = true
         ProfileManager.shared.updateProfile(updated)
+        ProfileManager.shared.expiredAccountIds.remove(updated.id)
         try? StatuslineService.shared.updateScriptsIfInstalled()
         return updated
     }

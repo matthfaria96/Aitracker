@@ -87,6 +87,7 @@ enum AccountsMenuBarRenderer {
         let widths = accounts.map(groupWidth)
         let width = widths.reduce(0, +) + CGFloat(max(accounts.count - 1, 0)) * groupGap
         let foreground: NSColor = darkMenuBar ? .white : .black
+        let expired = ProfileManager.shared.expiredAccountIds
 
         let image = NSImage(size: NSSize(width: width, height: height), flipped: false) { _ in
             var x: CGFloat = 0
@@ -120,6 +121,13 @@ enum AccountsMenuBarRenderer {
                 trackPath.fill()
 
                 // Fill from the bottom up
+                if expired.contains(account.id) {
+                    // Dead session: a solid orange bar instead of an outdated value.
+                    NSColor.systemOrange.setFill()
+                    trackPath.fill()
+                    x += barWidth + groupGap
+                    continue
+                }
                 let percent = effectiveUsage(account.claudeUsage)
                 if percent > 0 {
                     let fillHeight = max(2, barHeight * CGFloat(percent / 100))

@@ -1085,7 +1085,7 @@
 "browser_auth.profile" = "設定檔";
 "browser_auth.default_suffix" = "%@（預設）";
 "browser_auth.open_login" = "在 %@ 開啟登入";
-"browser_auth.open_login_hint" = "已經登入了嗎？直接在下方選擇帳號即可。否則請開啟登入頁面並登入，Aitracker 會自動取得工作階段。";
+"browser_auth.open_login_hint" = "開啟瀏覽器的獨立視窗。在其中登入你想要的帳號：Aitracker 會取得工作階段並關閉視窗。";
 "browser_auth.waiting" = "正在等待你在 %@ 登入… 會自動更新，瀏覽器儲存工作階段最多可能需要 30 秒。";
 "browser_auth.retry" = "重試";
 "browser_auth.found_sessions" = "此瀏覽器中已登入的帳號";
@@ -1097,7 +1097,7 @@
 "browser_auth.expired" = "工作階段已過期或已登出";
 "browser_auth.use" = "使用";
 "browser_auth.no_browser" = "找不到支援的瀏覽器。Aitracker 可從 Vivaldi、Chrome、Brave、Edge、Arc、Opera、Chromium 或 Firefox 讀取工作階段。";
-"browser_auth.multi_account_hint" = "新增其他帳號：在瀏覽器中按一下 claude.ai 網址旁的鎖頭 → Cookie 和網站資料 → 刪除 claude.ai。接著按一下上方的「開啟登入」，用另一個帳號登入。不要在 claude.ai 按「登出」，否則會中斷 Aitracker 已儲存的帳號。";
+"browser_auth.multi_account_hint" = "每次新登入都使用獨立視窗，因此你的帳號會保持連線，平常的瀏覽也不受影響。從上方清單選擇的帳號與瀏覽器共用：若有其他帳號在瀏覽器中登入，它就會停止運作。";
 "browser_auth.error.keychain_denied" = "macOS 不允許 Aitracker 讀取鑰匙圈中的「%@ Safe Storage」，而解密瀏覽器 Cookie 需要它。請按一下「重試」並選擇「永遠允許」。";
 "browser_auth.error.keychain_missing" = "在鑰匙圈中找不到 %@ 的 Cookie 加密金鑰。請至少開啟一次瀏覽器後再試一次。";
 "browser_auth.error.db_unreadable" = "無法讀取瀏覽器的 Cookie 資料庫（%@）。";
@@ -1156,3 +1156,4 @@
 "settings.restart_now" = "立即重新啟動";
 "settings.check_updates" = "檢查更新項目…";
 "settings.auto_updates" = "自動檢查更新項目";
+"accounts.session_expired" = "工作階段已過期 · 請在設定中重新連線";

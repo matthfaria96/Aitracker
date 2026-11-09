@@ -208,12 +208,17 @@ struct SimpleSettingsView: View {
                     .font(.system(size: 12.5, weight: .medium))
                     .lineLimit(1)
                     .truncationMode(.middle)
-                Text(account.providerLabel)
+                Text(isExpired(account) ? "accounts.session_expired".localized : account.providerLabel)
                     .font(.system(size: 11))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(isExpired(account) ? AnyShapeStyle(.orange) : AnyShapeStyle(.secondary))
             }
             Spacer()
-            if AccountUsage.isBalanceOnly(account) {
+            if isExpired(account) {
+                if account.provider == .anthropic {
+                    Button("accounts.reconnect".localized) { showingAddAccount = true }
+                        .controlSize(.small)
+                }
+            } else if AccountUsage.isBalanceOnly(account) {
                 Text(AccountUsage.balance(account.claudeUsage))
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .monospacedDigit()
@@ -234,6 +239,10 @@ struct SimpleSettingsView: View {
             .menuIndicator(.hidden)
             .fixedSize()
         }
+    }
+
+    private func isExpired(_ account: Profile) -> Bool {
+        profileManager.expiredAccountIds.contains(account.id)
     }
 
     // MARK: - Actions

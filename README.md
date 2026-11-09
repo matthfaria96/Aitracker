@@ -68,8 +68,9 @@ The app is free and has no paid developer account behind it, so it isn't notariz
 
 Open the menu bar panel, click the gear, then **Add Account**.
 
-- **Claude:** pick your browser and an account that's already signed in, or open the login page there. The first time, macOS asks to let Aitracker read "<Browser> Safe Storage" from the Keychain, which is needed to decrypt the browser's session. Choose **Always Allow**.
-- **Another Claude account:** in the browser, click the padlock next to claude.ai's address, open *Cookies and site data* and delete claude.ai. Then click **Open login** and sign in with the other account. Don't click *Log out* on claude.ai, because that would end the session Aitracker saved.
+- **Claude:** click **Open login**. A separate window of your browser opens: sign in there with the account you want, and Aitracker picks it up and closes the window. Do this once per account. The first time, macOS asks to let Aitracker read "<Browser> Safe Storage" from the Keychain, which is needed to decrypt the browser's session. Choose **Always Allow**.
+- **An account already signed in to your browser:** you can pick it from the list instead, but that session is shared with the browser, so it stops working if another account signs in there. The separate window doesn't have this problem.
+- **If a session ends:** the account turns orange and shows **Reconnect**. Aitracker never shows old numbers as current.
 - **ChatGPT (Codex) and Kimi Code:** sign in with their command-line tool, then add the account.
 - **DeepSeek, Meshy and Tripo:** paste an API key from your account on each service. The key is only used to read the balance.
 

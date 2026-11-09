@@ -17,6 +17,8 @@ class ProfileManager: ObservableObject {
     @Published var displayMode: ProfileDisplayMode = .single
     @Published var multiProfileConfig: MultiProfileDisplayConfig = .default
     @Published var isSwitchingProfile: Bool = false
+    /// Accounts whose session the service rejected on the last refresh.
+    @Published var expiredAccountIds: Set<UUID> = []
 
     private let profileStore = ProfileStore.shared
     private let cliSyncService = ClaudeCodeSyncService.shared

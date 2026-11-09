@@ -166,7 +166,8 @@ struct PopoverContentView: View {
                                 isExpanded: Binding(
                                     get: { expandedId == account.id || accounts.count == 1 },
                                     set: { expandedId = $0 ? account.id : nil }
-                                )
+                                ),
+                                isExpired: profileManager.expiredAccountIds.contains(account.id)
                             )
                         }
                     }

@@ -280,7 +280,9 @@ final class StatusBarUIManager {
         button.imagePosition = .imageOnly
         button.image = image
         button.toolTip = accounts.map { account in
-            AccountUsage.isBalanceOnly(account)
+            ProfileManager.shared.expiredAccountIds.contains(account.id)
+                ? "\(account.name): \("accounts.session_expired".localized)"
+                : AccountUsage.isBalanceOnly(account)
                 ? "\(account.name): \(AccountUsage.balance(account.claudeUsage))"
                 : "\(account.name): \(Int(AccountsMenuBarRenderer.effectiveUsage(account.claudeUsage).rounded()))%"
         }.joined(separator: "\n")

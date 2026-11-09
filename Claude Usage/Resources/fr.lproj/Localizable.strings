@@ -1077,7 +1077,7 @@
 "browser_auth.profile" = "Profil";
 "browser_auth.default_suffix" = "%@ (par défaut)";
 "browser_auth.open_login" = "Ouvrir la connexion dans %@";
-"browser_auth.open_login_hint" = "Déjà connecté ? Choisissez simplement le compte ci-dessous. Sinon, ouvrez la page de connexion, connectez-vous et Aitracker récupère la session automatiquement.";
+"browser_auth.open_login_hint" = "Ouvre une fenêtre séparée de votre navigateur. Connectez-vous-y avec le compte voulu : Aitracker récupère la session et ferme la fenêtre.";
 "browser_auth.waiting" = "En attente de votre connexion dans %@… Mise à jour automatique — le navigateur peut mettre jusqu’à 30 secondes à enregistrer la session.";
 "browser_auth.retry" = "Réessayer";
 "browser_auth.found_sessions" = "Comptes connectés dans ce navigateur";
@@ -1089,7 +1089,7 @@
 "browser_auth.expired" = "Session expirée ou déconnectée";
 "browser_auth.use" = "Utiliser";
 "browser_auth.no_browser" = "Aucun navigateur compatible trouvé. Aitracker lit la session depuis Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium ou Firefox.";
-"browser_auth.multi_account_hint" = "Pour ajouter un autre compte : dans le navigateur, cliquez sur le cadenas à côté de l’adresse de claude.ai → Cookies et données de site → supprimez claude.ai. Puis cliquez sur « Ouvrir la connexion » ci-dessus et connectez-vous avec l’autre compte. Ne cliquez pas sur « Se déconnecter » sur claude.ai : cela déconnecterait le compte déjà enregistré par Aitracker.";
+"browser_auth.multi_account_hint" = "Chaque nouvelle connexion utilise sa propre fenêtre : vos comptes restent connectés et votre navigation habituelle n’est pas touchée. Un compte choisi dans la liste ci-dessus est partagé avec le navigateur : il cesse de fonctionner si un autre compte s’y connecte.";
 "browser_auth.error.keychain_denied" = "macOS n’a pas autorisé Aitracker à lire « %@ Safe Storage » dans le trousseau, nécessaire pour déchiffrer les cookies du navigateur. Cliquez sur Réessayer et choisissez « Toujours autoriser ».";
 "browser_auth.error.keychain_missing" = "Clé de chiffrement des cookies de %@ introuvable dans le trousseau. Ouvrez le navigateur au moins une fois et réessayez.";
 "browser_auth.error.db_unreadable" = "Impossible de lire la base de cookies du navigateur (%@).";
@@ -1148,3 +1148,4 @@
 "settings.restart_now" = "Redémarrer maintenant";
 "settings.check_updates" = "Rechercher des mises à jour…";
 "settings.auto_updates" = "Rechercher les mises à jour automatiquement";
+"accounts.session_expired" = "Session expirée · reconnectez dans les réglages";

@@ -1097,7 +1097,7 @@
 "browser_auth.profile" = "Hồ sơ";
 "browser_auth.default_suffix" = "%@ (mặc định)";
 "browser_auth.open_login" = "Mở đăng nhập trong %@";
-"browser_auth.open_login_hint" = "Đã đăng nhập? Chỉ cần chọn tài khoản bên dưới. Nếu chưa, hãy mở trang đăng nhập, đăng nhập và Aitracker sẽ tự lấy phiên.";
+"browser_auth.open_login_hint" = "Mở một cửa sổ riêng của trình duyệt. Đăng nhập ở đó bằng tài khoản bạn muốn: Aitracker sẽ lấy phiên và đóng cửa sổ.";
 "browser_auth.waiting" = "Đang chờ bạn đăng nhập trong %@… Tự cập nhật — trình duyệt có thể mất tới 30 giây để lưu phiên.";
 "browser_auth.retry" = "Thử lại";
 "browser_auth.found_sessions" = "Tài khoản đã đăng nhập trong trình duyệt này";
@@ -1109,7 +1109,7 @@
 "browser_auth.expired" = "Phiên đã hết hạn hoặc đã đăng xuất";
 "browser_auth.use" = "Dùng";
 "browser_auth.no_browser" = "Không tìm thấy trình duyệt được hỗ trợ. Aitracker đọc phiên từ Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium hoặc Firefox.";
-"browser_auth.multi_account_hint" = "Để thêm tài khoản khác: trong trình duyệt, bấm biểu tượng ổ khóa cạnh địa chỉ claude.ai → Cookie và dữ liệu trang web → xóa claude.ai. Sau đó bấm “Mở đăng nhập” ở trên và đăng nhập bằng tài khoản kia. Đừng bấm “Đăng xuất” trên claude.ai — việc đó sẽ ngắt kết nối tài khoản Aitracker đã lưu.";
+"browser_auth.multi_account_hint" = "Mỗi lần đăng nhập mới dùng một cửa sổ riêng, nên các tài khoản vẫn được kết nối và việc duyệt web thường ngày không bị ảnh hưởng. Tài khoản chọn từ danh sách trên được dùng chung với trình duyệt: nó sẽ ngừng hoạt động nếu tài khoản khác đăng nhập ở đó.";
 "browser_auth.error.keychain_denied" = "macOS không cho Aitracker đọc “%@ Safe Storage” trong Chuỗi khóa, cần thiết để giải mã cookie của trình duyệt. Bấm Thử lại và chọn “Luôn cho phép”.";
 "browser_auth.error.keychain_missing" = "Không tìm thấy khóa mã hóa cookie của %@ trong Chuỗi khóa. Hãy mở trình duyệt ít nhất một lần rồi thử lại.";
 "browser_auth.error.db_unreadable" = "Không đọc được cơ sở dữ liệu cookie của trình duyệt (%@).";
@@ -1168,3 +1168,4 @@
 "settings.restart_now" = "Khởi động lại ngay";
 "settings.check_updates" = "Kiểm tra cập nhật…";
 "settings.auto_updates" = "Tự động kiểm tra cập nhật";
+"accounts.session_expired" = "Phiên đã hết hạn · kết nối lại trong Cài đặt";

@@ -1108,7 +1108,7 @@
 "browser_auth.profile" = "프로필";
 "browser_auth.default_suffix" = "%@ (기본)";
 "browser_auth.open_login" = "%@에서 로그인 열기";
-"browser_auth.open_login_hint" = "이미 로그인했나요? 아래에서 계정을 고르기만 하면 됩니다. 아니면 로그인 페이지를 열고 로그인하세요. Aitracker가 세션을 자동으로 가져옵니다.";
+"browser_auth.open_login_hint" = "브라우저의 별도 창을 엽니다. 거기서 원하는 계정으로 로그인하면 Aitracker가 세션을 가져오고 창을 닫습니다.";
 "browser_auth.waiting" = "%@에서 로그인하기를 기다리는 중… 자동으로 업데이트됩니다. 브라우저가 세션을 저장하는 데 최대 30초가 걸릴 수 있습니다.";
 "browser_auth.retry" = "다시 시도";
 "browser_auth.found_sessions" = "이 브라우저에 로그인된 계정";
@@ -1120,7 +1120,7 @@
 "browser_auth.expired" = "세션 만료 또는 로그아웃됨";
 "browser_auth.use" = "사용";
 "browser_auth.no_browser" = "지원되는 브라우저를 찾지 못했습니다. Aitracker는 Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium, Firefox에서 세션을 읽습니다.";
-"browser_auth.multi_account_hint" = "다른 계정을 추가하려면: 브라우저에서 claude.ai 주소 옆의 자물쇠 → 쿠키 및 사이트 데이터 → claude.ai 삭제. 그런 다음 위의 “로그인 열기”를 누르고 다른 계정으로 로그인하세요. claude.ai에서 “로그아웃”은 누르지 마세요. Aitracker에 저장된 계정의 연결이 끊어집니다.";
+"browser_auth.multi_account_hint" = "새 로그인마다 별도의 창을 사용하므로 계정 연결이 유지되고 평소 브라우징에도 영향이 없습니다. 위 목록에서 고른 계정은 브라우저와 공유되므로, 그곳에서 다른 계정이 로그인하면 작동을 멈춥니다.";
 "browser_auth.error.keychain_denied" = "macOS가 Aitracker의 키체인 “%@ Safe Storage” 읽기를 허용하지 않았습니다. 브라우저 쿠키를 해독하려면 필요합니다. 다시 시도를 누르고 “항상 허용”을 선택하세요.";
 "browser_auth.error.keychain_missing" = "키체인에서 %@의 쿠키 암호화 키를 찾지 못했습니다. 브라우저를 한 번 이상 연 후 다시 시도하세요.";
 "browser_auth.error.db_unreadable" = "브라우저 쿠키 데이터베이스를 읽지 못했습니다 (%@).";
@@ -1179,3 +1179,4 @@
 "settings.restart_now" = "지금 다시 시작";
 "settings.check_updates" = "업데이트 확인…";
 "settings.auto_updates" = "자동으로 업데이트 확인";
+"accounts.session_expired" = "세션 만료 · 설정에서 다시 연결하세요";

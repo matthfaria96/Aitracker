@@ -1099,7 +1099,7 @@
 "browser_auth.profile" = "Profil";
 "browser_auth.default_suffix" = "%@ (Standard)";
 "browser_auth.open_login" = "Anmeldung in %@ öffnen";
-"browser_auth.open_login_hint" = "Schon angemeldet? Wähle einfach unten das Konto. Andernfalls öffne die Anmeldeseite, melde dich an, und Aitracker übernimmt die Sitzung automatisch.";
+"browser_auth.open_login_hint" = "Öffnet ein separates Fenster deines Browsers. Melde dich dort mit dem gewünschten Konto an: Aitracker übernimmt die Sitzung und schließt das Fenster.";
 "browser_auth.waiting" = "Warte auf deine Anmeldung in %@… Aktualisiert sich selbst — der Browser kann bis zu 30 Sekunden brauchen, um die Sitzung zu speichern.";
 "browser_auth.retry" = "Erneut versuchen";
 "browser_auth.found_sessions" = "In diesem Browser angemeldete Konten";
@@ -1111,7 +1111,7 @@
 "browser_auth.expired" = "Sitzung abgelaufen oder abgemeldet";
 "browser_auth.use" = "Verwenden";
 "browser_auth.no_browser" = "Kein unterstützter Browser gefunden. Aitracker liest die Sitzung aus Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium oder Firefox.";
-"browser_auth.multi_account_hint" = "Weiteres Konto hinzufügen: Klicke im Browser auf das Schloss neben der Adresse von claude.ai → Cookies und Websitedaten → claude.ai löschen. Klicke dann oben auf „Anmeldung öffnen“ und melde dich mit dem anderen Konto an. Klicke auf claude.ai nicht auf „Abmelden“ — sonst wird das bereits in Aitracker gespeicherte Konto getrennt.";
+"browser_auth.multi_account_hint" = "Jede neue Anmeldung nutzt ein eigenes Fenster, sodass deine Konten verbunden bleiben und dein normales Surfen unberührt bleibt. Ein oben gewähltes Konto wird mit dem Browser geteilt: Es funktioniert nicht mehr, sobald sich dort ein anderes Konto anmeldet.";
 "browser_auth.error.keychain_denied" = "macOS hat Aitracker nicht erlaubt, „%@ Safe Storage“ aus dem Schlüsselbund zu lesen, was zum Entschlüsseln der Browser-Cookies nötig ist. Klicke auf Erneut versuchen und wähle „Immer erlauben“.";
 "browser_auth.error.keychain_missing" = "Der Cookie-Schlüssel von %@ wurde im Schlüsselbund nicht gefunden. Öffne den Browser mindestens einmal und versuche es erneut.";
 "browser_auth.error.db_unreadable" = "Die Cookie-Datenbank des Browsers konnte nicht gelesen werden (%@).";
@@ -1170,3 +1170,4 @@
 "settings.restart_now" = "Jetzt neu starten";
 "settings.check_updates" = "Nach Updates suchen…";
 "settings.auto_updates" = "Automatisch nach Updates suchen";
+"accounts.session_expired" = "Sitzung abgelaufen · in den Einstellungen neu verbinden";

@@ -1080,7 +1080,7 @@
 "browser_auth.profile" = "Perfil";
 "browser_auth.default_suffix" = "%@ (predeterminado)";
 "browser_auth.open_login" = "Abrir inicio de sesión en %@";
-"browser_auth.open_login_hint" = "¿Ya iniciaste sesión? Elige la cuenta abajo. Si no, abre la página de inicio de sesión, entra y Aitracker detectará la sesión automáticamente.";
+"browser_auth.open_login_hint" = "Abre una ventana aparte de tu navegador. Inicia sesión allí con la cuenta que quieras: Aitracker la detecta y cierra la ventana.";
 "browser_auth.waiting" = "Esperando a que inicies sesión en %@… Se actualiza solo; el navegador puede tardar hasta 30 segundos en guardar la sesión.";
 "browser_auth.retry" = "Reintentar";
 "browser_auth.found_sessions" = "Cuentas con sesión en este navegador";
@@ -1092,7 +1092,7 @@
 "browser_auth.expired" = "Sesión caducada o cerrada";
 "browser_auth.use" = "Usar";
 "browser_auth.no_browser" = "No se encontró ningún navegador compatible. Aitracker lee la sesión de Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium o Firefox.";
-"browser_auth.multi_account_hint" = "Para añadir otra cuenta: en el navegador, haz clic en el candado junto a la dirección de claude.ai → Cookies y datos del sitio → elimina claude.ai. Luego pulsa “Abrir inicio de sesión” arriba y entra con la otra cuenta. No pulses “Cerrar sesión” en claude.ai: desconectaría la cuenta que Aitracker ya guardó.";
+"browser_auth.multi_account_hint" = "Cada inicio de sesión nuevo usa su propia ventana, así tus cuentas siguen conectadas y tu navegación normal no se toca. Una cuenta elegida en la lista de arriba se comparte con el navegador: deja de funcionar si otra cuenta inicia sesión allí.";
 "browser_auth.error.keychain_denied" = "macOS no permitió que Aitracker leyera “%@ Safe Storage” del Llavero, necesario para descifrar las cookies del navegador. Pulsa Reintentar y elige “Permitir siempre”.";
 "browser_auth.error.keychain_missing" = "No se encontró la clave de cifrado de cookies de %@ en el Llavero. Abre el navegador al menos una vez e inténtalo de nuevo.";
 "browser_auth.error.db_unreadable" = "No se pudo leer la base de datos de cookies del navegador (%@).";
@@ -1151,3 +1151,4 @@
 "settings.restart_now" = "Reiniciar ahora";
 "settings.check_updates" = "Buscar actualizaciones…";
 "settings.auto_updates" = "Buscar actualizaciones automáticamente";
+"accounts.session_expired" = "Sesión caducada · reconecta en Ajustes";

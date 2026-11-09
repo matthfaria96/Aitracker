@@ -21,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         // Load profiles into ProfileManager (synchronously)
         ProfileManager.shared.loadProfiles()
 
+        BrowserCookieService.shared.removeAllIsolatedProfiles()
+
         // In-app updates (daily check, witchmymac.com feed)
         _ = UpdateManager.shared
 

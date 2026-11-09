@@ -1099,7 +1099,7 @@
 "browser_auth.profile" = "Perfil";
 "browser_auth.default_suffix" = "%@ (padrão)";
 "browser_auth.open_login" = "Abrir login no %@";
-"browser_auth.open_login_hint" = "Já está logado? É só escolher a conta abaixo. Senão, abra a página de login, entre, e o Aitracker pega a sessão sozinho.";
+"browser_auth.open_login_hint" = "Abre uma janela separada do seu navegador. Entre nela com a conta que quiser: o Aitracker pega a sessão e fecha a janela.";
 "browser_auth.waiting" = "Aguardando você entrar no %@… Atualiza sozinho — o navegador pode levar até 30 segundos para salvar a sessão.";
 "browser_auth.retry" = "Tentar novamente";
 "browser_auth.found_sessions" = "Contas logadas neste navegador";
@@ -1111,7 +1111,7 @@
 "browser_auth.expired" = "Sessão expirada ou deslogada";
 "browser_auth.use" = "Usar";
 "browser_auth.no_browser" = "Nenhum navegador compatível encontrado. O Aitracker lê a sessão do Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium ou Firefox.";
-"browser_auth.multi_account_hint" = "Para adicionar outra conta: no navegador, clique no cadeado ao lado do endereço do claude.ai → Cookies e dados do site → apague o claude.ai. Depois clique em “Abrir login” acima e entre com a outra conta. Não clique em “Sair” no claude.ai — isso desconectaria a conta que o Aitracker já guardou.";
+"browser_auth.multi_account_hint" = "Cada login novo usa uma janela separada, então suas contas continuam conectadas e sua navegação normal não é afetada. Uma conta escolhida na lista acima é compartilhada com o navegador: ela para de funcionar se outra conta entrar nele.";
 "browser_auth.error.keychain_denied" = "O macOS não deixou o Aitracker ler “%@ Safe Storage” do Keychain, necessário para descriptografar os cookies do navegador. Clique em Tentar novamente e escolha “Sempre Permitir”.";
 "browser_auth.error.keychain_missing" = "Não encontrei a chave de criptografia de cookies do %@ no Keychain. Abra o navegador pelo menos uma vez e tente de novo.";
 "browser_auth.error.db_unreadable" = "Não consegui ler o banco de cookies do navegador (%@).";
@@ -1170,3 +1170,4 @@
 "settings.restart_now" = "Reiniciar agora";
 "settings.check_updates" = "Procurar atualizações…";
 "settings.auto_updates" = "Procurar atualizações automaticamente";
+"accounts.session_expired" = "Sessão expirada · reconecte nos Ajustes";

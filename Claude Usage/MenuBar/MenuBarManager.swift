@@ -994,7 +994,10 @@ class MenuBarManager: NSObject, ObservableObject {
         // whose CLI OAuth token has expired are still polled — `fetchUsageForProfile`
         // will transparently refresh expired tokens via the refresh_token grant.
         // Excluding them here would prevent the refresh path from ever running.
-        let selectedProfiles = profileManager.profiles.filter { $0.isSelectedForDisplay && $0.hasAnyCredentials }
+        // Only accounts shown in the panel: a leftover profile holding Claude Code
+        // credentials would otherwise be polled through the Messages API, which
+        // spends tokens on every refresh.
+        let selectedProfiles = profileManager.profiles.filter { $0.isSelectedForDisplay && $0.isTrackedAccount }
 
         guard !selectedProfiles.isEmpty else {
             LoggingService.shared.log("MenuBarManager: No selected profiles with usage credentials to refresh")
@@ -1031,6 +1034,8 @@ class MenuBarManager: NSObject, ObservableObject {
                     let newUsage = try await fetchUsageForProfile(profile)
 
                     await MainActor.run {
+                        self.profileManager.expiredAccountIds.remove(profile.id)
+
                         // Check for resets before updating usage
                         self.checkAndRecordSessionReset(
                             profileId: profile.id,
@@ -1077,6 +1082,11 @@ class MenuBarManager: NSObject, ObservableObject {
                     }
                 } catch {
                     LoggingService.shared.logError("Failed to refresh profile '\(profile.name)': \(error.localizedDescription)")
+                    // Never present the last known numbers as current for a dead session.
+                    let code = AppError.wrap(error).code
+                    if code == .apiUnauthorized || code == .providerAuthExpired {
+                        await MainActor.run { _ = self.profileManager.expiredAccountIds.insert(profile.id) }
+                    }
                 }
 
                 // Fetch API usage if this profile's provider has console billing

@@ -249,6 +249,71 @@ nonisolated final class BrowserCookieService: @unchecked Sendable {
         NSWorkspace.shared.open([url], withApplicationAt: appURL, configuration: configuration)
     }
 
+    // MARK: Isolated sign-in
+
+    /// A throwaway browser data directory for one sign-in. claude.ai ends the
+    /// previous session when another account signs in on the same browser
+    /// profile, so each new account gets a cookie jar of its own: the accounts
+    /// already tracked and the user's normal browsing are left untouched.
+    func makeIsolatedProfile(for browser: SupportedBrowser) -> BrowserProfile? {
+        let id = UUID().uuidString
+        guard let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?
+            .appendingPathComponent("Aitracker/BrowserSessions/\(id)", isDirectory: true),
+              (try? FileManager.default.createDirectory(at: root, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])) != nil else {
+            return nil
+        }
+        let cookies: URL
+        switch browser.engine {
+        case .chromium: cookies = root.appendingPathComponent("Default/Cookies")
+        case .firefox: cookies = root.appendingPathComponent("cookies.sqlite")
+        }
+        return BrowserProfile(browser: browser, directoryName: "isolated-\(id)", displayName: browser.name, cookiesURL: cookies)
+    }
+
+    private func isolatedRoot(of profile: BrowserProfile) -> URL {
+        switch profile.browser.engine {
+        case .chromium: return profile.cookiesURL.deletingLastPathComponent().deletingLastPathComponent()
+        case .firefox: return profile.cookiesURL.deletingLastPathComponent()
+        }
+    }
+
+    /// Opens `url` in a separate instance of the browser using the isolated profile.
+    func openIsolated(_ url: URL, profile: BrowserProfile, completion: @escaping @Sendable (NSRunningApplication?) -> Void) {
+        guard let appURL = profile.browser.appURL else { completion(nil); return }
+        let root = isolatedRoot(of: profile).path
+        let configuration = NSWorkspace.OpenConfiguration()
+        configuration.activates = true
+        configuration.createsNewApplicationInstance = true
+        switch profile.browser.engine {
+        case .chromium:
+            configuration.arguments = ["--user-data-dir=\(root)", "--no-first-run", "--no-default-browser-check", url.absoluteString]
+        case .firefox:
+            configuration.arguments = ["--profile", root, "--no-remote", "--new-instance", url.absoluteString]
+        }
+        NSWorkspace.shared.openApplication(at: appURL, configuration: configuration) { app, error in
+            if let error { logOnMain("BrowserCookieService: isolated launch failed – \(error.localizedDescription)") }
+            completion(app)
+        }
+    }
+
+    /// Reads the isolated profile; nil-safe while the browser hasn't created its database yet.
+    func readIsolatedCookies(named name: String, domain: String, from profile: BrowserProfile) -> [BrowserSessionCookie] {
+        guard FileManager.default.fileExists(atPath: profile.cookiesURL.path) else { return [] }
+        return (try? readCookies(named: name, domain: domain, from: profile)) ?? []
+    }
+
+    /// Removes sign-in directories left behind if the app quit mid-login:
+    /// they hold a session cookie and have no further use.
+    func removeAllIsolatedProfiles() {
+        guard let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?
+            .appendingPathComponent("Aitracker/BrowserSessions", isDirectory: true) else { return }
+        try? FileManager.default.removeItem(at: root)
+    }
+
+    func removeIsolatedProfile(_ profile: BrowserProfile) {
+        try? FileManager.default.removeItem(at: isolatedRoot(of: profile))
+    }
+
     // MARK: Reading cookies
 
     /// Finds the cookie `name` for `domain` (exact host or its dot-prefixed

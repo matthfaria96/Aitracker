@@ -169,6 +169,7 @@ struct AccountRow: View {
     let profile: Profile
     let color: Color
     @Binding var isExpanded: Bool
+    var isExpired = false
 
     @State private var isHovered = false
 
@@ -196,7 +197,12 @@ struct AccountRow: View {
 
                     Spacer(minLength: 8)
 
-                    if AccountUsage.isBalanceOnly(profile), usage != nil {
+                    if isExpired {
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundStyle(.orange)
+                            .frame(width: 34)
+                    } else if AccountUsage.isBalanceOnly(profile), usage != nil {
                         Text(AccountUsage.balance(usage))
                             .font(.system(size: 15, weight: .semibold, design: .rounded))
                             .monospacedDigit()
@@ -214,7 +220,7 @@ struct AccountRow: View {
             }
             .buttonStyle(.plain)
 
-            if isExpanded, let usage, !AccountUsage.isBalanceOnly(profile) {
+            if isExpanded, !isExpired, let usage, !AccountUsage.isBalanceOnly(profile) {
                 AccountDetails(usage: usage)
                     .padding(.horizontal, 10)
                     .padding(.bottom, 10)
@@ -229,10 +235,11 @@ struct AccountRow: View {
     }
 
     private var subtitleIsWarning: Bool {
-        AccountUsage.isBalanceOnly(profile) ? AccountUsage.isOutOfBalance(usage) : AccountUsage.isBlockedBySession(usage)
+        isExpired || AccountUsage.isBalanceOnly(profile) ? AccountUsage.isOutOfBalance(usage) : AccountUsage.isBlockedBySession(usage)
     }
 
     private var subtitle: String {
+        if isExpired { return "accounts.session_expired".localized }
         guard let usage else { return profile.providerLabel }
         if AccountUsage.isBalanceOnly(profile) {
             // The account name already says which service this is.

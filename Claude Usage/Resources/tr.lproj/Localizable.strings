@@ -1091,7 +1091,7 @@
 "browser_auth.profile" = "Profil";
 "browser_auth.default_suffix" = "%@ (varsayılan)";
 "browser_auth.open_login" = "Girişi %@ içinde aç";
-"browser_auth.open_login_hint" = "Zaten giriş yaptınız mı? Aşağıdan hesabı seçmeniz yeterli. Yapmadıysanız giriş sayfasını açın, giriş yapın; Aitracker oturumu otomatik olarak alır.";
+"browser_auth.open_login_hint" = "Tarayıcınızın ayrı bir penceresini açar. Orada istediğiniz hesapla giriş yapın: Aitracker oturumu alır ve pencereyi kapatır.";
 "browser_auth.waiting" = "%@ içinde giriş yapmanız bekleniyor… Kendiliğinden güncellenir; tarayıcının oturumu kaydetmesi 30 saniyeyi bulabilir.";
 "browser_auth.retry" = "Tekrar Dene";
 "browser_auth.found_sessions" = "Bu tarayıcıda oturum açık hesaplar";
@@ -1103,7 +1103,7 @@
 "browser_auth.expired" = "Oturum süresi doldu veya çıkış yapıldı";
 "browser_auth.use" = "Kullan";
 "browser_auth.no_browser" = "Desteklenen tarayıcı bulunamadı. Aitracker oturumu Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium veya Firefox'tan okur.";
-"browser_auth.multi_account_hint" = "Başka bir hesap eklemek için: tarayıcıda claude.ai adresinin yanındaki kilide tıklayın → Çerezler ve site verileri → claude.ai'yi silin. Ardından yukarıdaki “Girişi aç”a tıklayıp diğer hesapla giriş yapın. claude.ai'de “Çıkış yap”a tıklamayın; Aitracker'ın kaydettiği hesabın bağlantısı kesilir.";
+"browser_auth.multi_account_hint" = "Her yeni giriş kendi penceresini kullanır; böylece hesaplarınız bağlı kalır ve normal gezintiniz etkilenmez. Yukarıdaki listeden seçilen hesap tarayıcıyla paylaşılır: orada başka bir hesap giriş yaparsa çalışmayı bırakır.";
 "browser_auth.error.keychain_denied" = "macOS, Aitracker'ın Anahtar Zinciri'nden “%@ Safe Storage” okumasına izin vermedi; bu, tarayıcı çerezlerini çözmek için gerekli. Tekrar Dene'ye tıklayıp “Her Zaman İzin Ver”i seçin.";
 "browser_auth.error.keychain_missing" = "%@ için çerez şifreleme anahtarı Anahtar Zinciri'nde bulunamadı. Tarayıcıyı en az bir kez açıp tekrar deneyin.";
 "browser_auth.error.db_unreadable" = "Tarayıcının çerez veritabanı okunamadı (%@).";
@@ -1162,3 +1162,4 @@
 "settings.restart_now" = "Şimdi Yeniden Başlat";
 "settings.check_updates" = "Güncellemeleri Denetle…";
 "settings.auto_updates" = "Güncellemeleri otomatik denetle";
+"accounts.session_expired" = "Oturumun süresi doldu · Ayarlar'dan yeniden bağlanın";

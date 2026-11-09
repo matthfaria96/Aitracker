@@ -11,6 +11,7 @@
 //
 
 import Combine
+import AppKit
 import SwiftUI
 
 // MARK: - Result
@@ -65,6 +66,9 @@ final class BrowserAuthModel: ObservableObject {
     /// that shows up afterwards is the login that just happened.
     private var baseline: Set<String>?
     private var onAutoSelect: ((FoundSession) -> Void)?
+    /// Separate browser instance used for the sign-in in progress.
+    private var isolatedProfile: BrowserProfile?
+    private var isolatedApp: NSRunningApplication?
 
     init(loginURL: URL, cookieDomain: String) {
         self.loginURL = loginURL
@@ -97,6 +101,20 @@ final class BrowserAuthModel: ObservableObject {
     func stop() {
         pollTask?.cancel()
         pollTask = nil
+        closeIsolatedWindow()
+    }
+
+    private func closeIsolatedWindow() {
+        guard let profile = isolatedProfile else { return }
+        isolatedProfile = nil
+        let app = isolatedApp
+        isolatedApp = nil
+        app?.terminate()
+        // Give the browser time to quit before deleting its data directory.
+        let service = self.service
+        DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
+            service.removeIsolatedProfile(profile)
+        }
     }
 
     private func reloadProfiles() {
@@ -110,7 +128,16 @@ final class BrowserAuthModel: ObservableObject {
     func openLogin() {
         baseline = Set(sessions.map(\.cookie.value))
         isWaitingForLogin = true
-        service.open(loginURL, in: selectedBrowser, profile: selectedProfile)
+
+        guard let browser = selectedBrowser, let profile = service.makeIsolatedProfile(for: browser) else {
+            service.open(loginURL, in: selectedBrowser, profile: selectedProfile)
+            return
+        }
+        closeIsolatedWindow()
+        isolatedProfile = profile
+        service.openIsolated(loginURL, profile: profile) { [weak self] app in
+            DispatchQueue.main.async { self?.isolatedApp = app }
+        }
     }
 
     func retry() {
@@ -146,8 +173,10 @@ final class BrowserAuthModel: ObservableObject {
 
         let domain = cookieDomain
         let service = self.service
-        let result = await Task.detached(priority: .userInitiated) {
-            service.findCookies(named: "sessionKey", domain: domain, in: [browser])
+        let isolated = isolatedProfile
+        let (result, isolatedCookies) = await Task.detached(priority: .userInitiated) {
+            (service.findCookies(named: "sessionKey", domain: domain, in: [browser]),
+             isolated.map { service.readIsolatedCookies(named: "sessionKey", domain: domain, from: $0) } ?? [])
         }.value
 
         // The user may have switched browsers while we were reading.
@@ -158,7 +187,7 @@ final class BrowserAuthModel: ObservableObject {
             keychainError = error.localizedDescription
         }
 
-        merge(result.cookies)
+        merge(isolatedCookies + result.cookies)
     }
 
     private func merge(_ cookies: [BrowserSessionCookie]) {
@@ -186,8 +215,13 @@ final class BrowserAuthModel: ObservableObject {
         }
 
         // A new session appeared after the user opened the login page → done.
+        // With an isolated window only its own session counts: the regular browser
+        // can rotate its cookie at any moment while we wait.
         if isWaitingForLogin, let baseline,
-           let newSession = sessions.first(where: { !baseline.contains($0.cookie.value) }) {
+           let newSession = sessions.first(where: {
+               !baseline.contains($0.cookie.value)
+                   && (isolatedProfile == nil || $0.cookie.profile.id == isolatedProfile?.id)
+           }) {
             isWaitingForLogin = false
             self.baseline = nil
             onAutoSelect?(newSession)
