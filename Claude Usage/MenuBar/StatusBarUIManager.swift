@@ -213,58 +213,10 @@ final class StatusBarUIManager {
 
     /// Sets up status bar for multi-profile display mode
     func setupMultiProfile(profiles: [Profile], target: AnyObject, action: Selector) {
-        // Clean up existing items
+        // Aitracker: one menu bar item for all accounts.
         cleanup()
-
         isMultiProfileMode = true
-
-        // Filter to only profiles selected for display
-        let selectedProfiles = profiles.filter { $0.isSelectedForDisplay }
-
-        if selectedProfiles.isEmpty {
-            // No profiles selected - show default logo
-            let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            statusItem.autosaveName = Self.defaultLogoAutosaveName
-            // Override any persisted false from a prior cmd-drag.
-            statusItem.isVisible = true
-            if let button = statusItem.button {
-                button.action = action
-                button.target = target
-                button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-                button.title = ""
-            } else {
-                LoggingService.shared.logWarning("Multi-profile status bar button is nil - screens: \(NSScreen.screens.count)")
-            }
-            // Use a well-known placeholder UUID for default logo (stable across calls)
-            multiProfileStatusItems[Self.defaultLogoPlaceholderUUID] = statusItem
-            LoggingService.shared.logUIEvent("Multi-profile: No profiles selected, showing default logo")
-        } else {
-            // Create one status item per selected profile.
-            // macOS 26 (Tahoe): creating these with .variableLength makes AppKit run a
-            // recursive multi-item variable-width solve (NSISEngine) that overflows the
-            // stack when a full setup rebuilds 2+ items — e.g. on profile switch. Start
-            // them at a fixed placeholder length; updateMultiProfileButtons then pins the
-            // real (coarse-rounded, stable) width. No variable-width solve, no recursion.
-            for profile in selectedProfiles {
-                let statusItem = NSStatusBar.system.statusItem(withLength: Self.multiProfilePlaceholderLength)
-                statusItem.autosaveName = Self.autosaveName(forProfileId: profile.id)
-                // Override any persisted false from a prior cmd-drag.
-                statusItem.isVisible = true
-
-                if let button = statusItem.button {
-                    button.action = action
-                    button.target = target
-                    button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-                } else {
-                    LoggingService.shared.logWarning("Multi-profile status bar button is nil for \(profile.name) - screens: \(NSScreen.screens.count)")
-                }
-
-                multiProfileStatusItems[profile.id] = statusItem
-            }
-
-            LoggingService.shared.logUIEvent("Multi-profile: Created \(selectedProfiles.count) status items")
-        }
-
+        ensureAccountsItem(target: target, action: action)
         observeAppearanceChanges()
     }
 
@@ -272,68 +224,31 @@ final class StatusBarUIManager {
     /// Only adds/removes items when the set of selected profiles changes.
     func updateMultiProfileConfiguration(profiles: [Profile], target: AnyObject, action: Selector) {
         guard isMultiProfileMode else {
-            // Not in multi-profile mode yet - do a full setup
             setupMultiProfile(profiles: profiles, target: target, action: action)
             return
         }
+        ensureAccountsItem(target: target, action: action)
+    }
 
-        let selectedProfiles = profiles.filter { $0.isSelectedForDisplay }
-        let newProfileIds: Set<UUID> = selectedProfiles.isEmpty
-            ? [Self.defaultLogoPlaceholderUUID]
-            : Set(selectedProfiles.map { $0.id })
-        let currentProfileIds = Set(multiProfileStatusItems.keys)
-
-        // Step 1: Remove items that are no longer needed
-        let idsToRemove = currentProfileIds.subtracting(newProfileIds)
-        for profileId in idsToRemove {
-            if let statusItem = multiProfileStatusItems[profileId] {
-                if let button = statusItem.button {
-                    button.image = nil
-                    button.action = nil
-                    button.target = nil
-                }
-                NSStatusBar.system.removeStatusItem(statusItem)
-                LoggingService.shared.logUIEvent("Multi-profile: Removed status item for profile \(profileId)")
-            }
-            multiProfileStatusItems.removeValue(forKey: profileId)
+    /// Creates the single Aitracker status item if it doesn't exist yet.
+    private func ensureAccountsItem(target: AnyObject, action: Selector) {
+        // Drop any per-profile items left over from older builds.
+        for (id, item) in multiProfileStatusItems where id != Self.defaultLogoPlaceholderUUID {
+            NSStatusBar.system.removeStatusItem(item)
+            multiProfileStatusItems.removeValue(forKey: id)
         }
+        guard multiProfileStatusItems[Self.defaultLogoPlaceholderUUID] == nil else { return }
 
-        // Step 2: Add items that are new
-        let idsToAdd = newProfileIds.subtracting(currentProfileIds)
-
-        if selectedProfiles.isEmpty && idsToAdd.contains(Self.defaultLogoPlaceholderUUID) {
-            // Need to add default logo
-            let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            statusItem.autosaveName = Self.defaultLogoAutosaveName
-            // Override any persisted false from a prior cmd-drag.
-            statusItem.isVisible = true
-            if let button = statusItem.button {
-                button.action = action
-                button.target = target
-                button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-                button.title = ""
-            }
-            multiProfileStatusItems[Self.defaultLogoPlaceholderUUID] = statusItem
-            LoggingService.shared.logUIEvent("Multi-profile: Added default logo")
-        } else {
-            for profile in selectedProfiles where idsToAdd.contains(profile.id) {
-                // Fixed placeholder length (see setupMultiProfile) — avoids the macOS 26
-                // recursive variable-width solve; updateMultiProfileButtons pins the real width.
-                let statusItem = NSStatusBar.system.statusItem(withLength: Self.multiProfilePlaceholderLength)
-                statusItem.autosaveName = Self.autosaveName(forProfileId: profile.id)
-                // Override any persisted false from a prior cmd-drag.
-                statusItem.isVisible = true
-                if let button = statusItem.button {
-                    button.action = action
-                    button.target = target
-                    button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-                }
-                multiProfileStatusItems[profile.id] = statusItem
-                LoggingService.shared.logUIEvent("Multi-profile: Added status item for profile \(profile.name)")
-            }
+        let statusItem = NSStatusBar.system.statusItem(withLength: Self.multiProfilePlaceholderLength)
+        statusItem.autosaveName = Self.defaultLogoAutosaveName
+        statusItem.isVisible = true
+        if let button = statusItem.button {
+            button.action = action
+            button.target = target
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
+            button.title = ""
         }
-
-        LoggingService.shared.logUIEvent("Multi-profile config updated: removed=\(idsToRemove.count), added=\(idsToAdd.count), kept=\(currentProfileIds.intersection(newProfileIds).count)")
+        multiProfileStatusItems[Self.defaultLogoPlaceholderUUID] = statusItem
     }
 
     /// Adds a thin green underline to an image to indicate the active profile
@@ -350,185 +265,25 @@ final class StatusBarUIManager {
 
     /// Updates all multi-profile status items
     func updateMultiProfileButtons(profiles: [Profile], config: MultiProfileDisplayConfig, activeProfileId: UUID? = nil) {
-        guard isMultiProfileMode else { return }
+        guard isMultiProfileMode,
+              let statusItem = multiProfileStatusItems[Self.defaultLogoPlaceholderUUID],
+              let button = statusItem.button else { return }
 
-        for profile in profiles where profile.isSelectedForDisplay {
-            guard let statusItem = multiProfileStatusItems[profile.id],
-                  let button = statusItem.button else {
-                continue
-            }
+        let accounts = profiles.filter(\.isTrackedAccount)
+        let dark = button.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+        let image = AccountsMenuBarRenderer.image(accounts: accounts, style: MenuBarStyle.current, darkMenuBar: dark)
 
-            // Get actual menu bar appearance from the button (based on wallpaper, not system mode)
-            let menuBarIsDark = button.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-
-            // Get usage data for this profile
-            let usage = profile.claudeUsage ?? ClaudeUsage.empty
-            let showRemaining = config.showRemainingPercentage
-
-            // Calculate percentages
-            let sessionUsed = usage.effectiveSessionPercentage
-            let weekUsed = usage.weeklyPercentage
-
-            let sessionDisplay = UsageStatusCalculator.getDisplayPercentage(
-                usedPercentage: sessionUsed,
-                showRemaining: showRemaining
-            )
-            let weekDisplay = UsageStatusCalculator.getDisplayPercentage(
-                usedPercentage: weekUsed,
-                showRemaining: showRemaining
-            )
-
-            let sessionElapsed = UsageStatusCalculator.elapsedFraction(
-                resetTime: usage.sessionResetTime,
-                duration: Constants.sessionWindow,
-                showRemaining: false
-            )
-            let weekElapsed = UsageStatusCalculator.elapsedFraction(
-                resetTime: usage.weeklyResetTime,
-                duration: Constants.weeklyWindow,
-                showRemaining: false
-            )
-            let sessionStatus = UsageStatusCalculator.calculateStatus(
-                usedPercentage: sessionUsed,
-                showRemaining: showRemaining,
-                elapsedFraction: config.usePaceColoring ? sessionElapsed : nil
-            )
-            let weekStatus = UsageStatusCalculator.calculateStatus(
-                usedPercentage: weekUsed,
-                showRemaining: showRemaining,
-                elapsedFraction: config.usePaceColoring ? weekElapsed : nil
-            )
-
-            // Use multi-profile config's useSystemColor as monochrome mode
-            // When useSystemColor is ON, icons will be white (like single-profile monochrome)
-            let useMonochrome = config.useSystemColor
-
-            // Calculate time marker fractions for multi-profile display
-            let sessionMarker: CGFloat? = config.showTimeMarker
-                ? sessionElapsed.map { CGFloat(showRemaining ? 1.0 - $0 : $0) }
-                : nil
-            let weekMarker: CGFloat? = config.showTimeMarker
-                ? weekElapsed.map { CGFloat(showRemaining ? 1.0 - $0 : $0) }
-                : nil
-
-            // Compute pace status for multi-profile rendering
-            let sessionPaceStatus: PaceStatus? = {
-                guard config.showPaceMarker, let elapsed = sessionElapsed else { return nil }
-                return PaceStatus.calculate(usedPercentage: sessionUsed, elapsedFraction: elapsed)
-            }()
-            let weekPaceStatus: PaceStatus? = {
-                guard config.showPaceMarker, let elapsed = weekElapsed else { return nil }
-                return PaceStatus.calculate(usedPercentage: weekUsed, elapsedFraction: elapsed)
-            }()
-
-            // Create icon based on selected style
-            let image: NSImage
-            switch config.iconStyle {
-            case .concentric:
-                if config.showProfileLabel {
-                    image = renderer.createConcentricIconWithLabel(
-                        sessionPercentage: sessionDisplay,
-                        weekPercentage: config.showWeek ? weekDisplay : 0,
-                        sessionStatus: sessionStatus,
-                        weekStatus: weekStatus,
-                        profileName: profile.name,
-                        monochromeMode: useMonochrome,
-                        isDarkMode: menuBarIsDark,
-                        useSystemColor: false,
-                        sessionTimeMarker: sessionMarker,
-                        weekTimeMarker: config.showWeek ? weekMarker : nil,
-                        sessionPaceStatus: sessionPaceStatus,
-                        weekPaceStatus: config.showWeek ? weekPaceStatus : nil,
-                        showPaceMarker: config.showPaceMarker
-                    )
-                } else {
-                    image = renderer.createConcentricIcon(
-                        sessionPercentage: sessionDisplay,
-                        weekPercentage: config.showWeek ? weekDisplay : 0,
-                        sessionStatus: sessionStatus,
-                        weekStatus: weekStatus,
-                        profileInitial: String(profile.name.prefix(1)),
-                        monochromeMode: useMonochrome,
-                        isDarkMode: menuBarIsDark,
-                        useSystemColor: false,
-                        sessionTimeMarker: sessionMarker,
-                        weekTimeMarker: config.showWeek ? weekMarker : nil,
-                        sessionPaceStatus: sessionPaceStatus,
-                        weekPaceStatus: config.showWeek ? weekPaceStatus : nil,
-                        showPaceMarker: config.showPaceMarker
-                    )
-                }
-            case .progressBar:
-                image = renderer.createMultiProfileProgressBar(
-                    sessionPercentage: sessionDisplay,
-                    weekPercentage: config.showWeek ? weekDisplay : nil,
-                    sessionStatus: sessionStatus,
-                    weekStatus: weekStatus,
-                    profileName: config.showProfileLabel ? profile.name : nil,
-                    monochromeMode: useMonochrome,
-                    isDarkMode: menuBarIsDark,
-                    useSystemColor: false,
-                    sessionTimeMarker: sessionMarker,
-                    weekTimeMarker: config.showWeek ? weekMarker : nil,
-                    sessionPaceStatus: sessionPaceStatus,
-                    weekPaceStatus: config.showWeek ? weekPaceStatus : nil,
-                    showPaceMarker: config.showPaceMarker
-                )
-            case .compact:
-                image = renderer.createCompactDot(
-                    percentage: sessionDisplay,
-                    status: sessionStatus,
-                    profileInitial: config.showProfileLabel ? String(profile.name.prefix(1)) : nil,
-                    monochromeMode: useMonochrome,
-                    isDarkMode: menuBarIsDark,
-                    useSystemColor: false,
-                    paceStatus: sessionPaceStatus,
-                    showPaceMarker: config.showPaceMarker
-                )
-            case .percentage:
-                image = renderer.createMultiProfilePercentage(
-                    sessionPercentage: sessionDisplay,
-                    weekPercentage: config.showWeek ? weekDisplay : nil,
-                    sessionStatus: sessionStatus,
-                    weekStatus: weekStatus,
-                    profileName: config.showProfileLabel ? profile.name : nil,
-                    monochromeMode: useMonochrome,
-                    isDarkMode: menuBarIsDark,
-                    useSystemColor: false,
-                    sessionPaceStatus: sessionPaceStatus,
-                    weekPaceStatus: config.showWeek ? weekPaceStatus : nil,
-                    showPaceMarker: config.showPaceMarker
-                )
-            }
-
-            let finalImage: NSImage
-            if profile.id == activeProfileId && config.showActiveProfileIndicator {
-                let underlinedImage = addGreenUnderline(to: image)
-                underlinedImage.isTemplate = false
-                finalImage = underlinedImage
-            } else {
-                image.isTemplate = useMonochrome && !config.showPaceMarker
-                finalImage = image
-            }
-
-            // macOS 26 (Tahoe) crash fix: with NSStatusItem.variableLength, AppKit
-            // recomputes each item's width from its image inside a shared status-bar
-            // NSISEngine layout pass. With 2+ profile items this recurses without
-            // termination — a stack overflow (___chkstk_darwin in NSISEngine
-            // _coreReplaceMarker:withMarkerPlusDelta:). We pin an explicit length so
-            // AppKit skips the recursive variable-width solve.
-            //
-            // Crucially the length must stay CONSTANT across refreshes: *changing* a
-            // status item's length is itself the recursing op (the "PlusDelta"), so a
-            // per-pixel width jitter between updates (e.g. "5%" vs "45%") would still
-            // crash. Round the width up to a coarse grid so ordinary data changes never
-            // move the length, and only assign when it genuinely changes.
-            let stableLength = ceil(finalImage.size.width / 32.0) * 32.0
-            if abs(statusItem.length - stableLength) > 0.5 {
-                statusItem.length = stableLength
-            }
-            button.image = finalImage
-        }
+        // Fixed, explicit width (no variable-length solve — see macOS 26 note).
+        let width = ceil(image.size.width) + 10
+        if statusItem.length != width { statusItem.length = width }
+        button.title = ""
+        button.imagePosition = .imageOnly
+        button.image = image
+        button.toolTip = accounts.map { account in
+            AccountUsage.isBalanceOnly(account)
+                ? "\(account.name): \(AccountUsage.balance(account.claudeUsage))"
+                : "\(account.name): \(Int(AccountsMenuBarRenderer.effectiveUsage(account.claudeUsage).rounded()))%"
+        }.joined(separator: "\n")
     }
 
     /// Checks if currently in multi-profile mode

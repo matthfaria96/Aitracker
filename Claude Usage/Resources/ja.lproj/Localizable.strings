@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    Japanese (日本語)
    Created by Claude Code on 2026-01-05.
@@ -1090,6 +1090,83 @@
 "launcher.install_failed" = "ランチャーをインストールできませんでした: %@";
 "support.popup_title" = "こんにちは、Hamed です 👋";
 "support.popup_later" = "また今度";
-"support.popup_signature" = "Claude Usage を一人で作っています";
+"support.popup_signature" = "Aitracker を一人で作っています";
 "support.popup_body" = "無料・オープンソース・個人開発。広告もトラッキングもありません。セッション上限の浪費を防いだことがあるなら、一杯のコーヒーが開発を支えます。";
 "support.popup_days" = "あなたの上限を見守って %d 日 — ずっと無料";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "ブラウザ";
+"browser_auth.profile" = "プロファイル";
+"browser_auth.default_suffix" = "%@（デフォルト）";
+"browser_auth.open_login" = "%@ でログインを開く";
+"browser_auth.open_login_hint" = "すでにログイン済みなら、下のアカウントを選ぶだけです。まだなら、ログインページを開いてサインインすると、Aitracker が自動でセッションを取得します。";
+"browser_auth.waiting" = "%@ でのサインインを待っています… 自動で更新されます。ブラウザがセッションを保存するまで最大 30 秒かかることがあります。";
+"browser_auth.retry" = "再試行";
+"browser_auth.found_sessions" = "このブラウザでログイン中のアカウント";
+"browser_auth.no_sessions" = "このブラウザにはまだログイン中のセッションがありません。";
+"browser_auth.scanning" = "ブラウザのセッションを読み込み中…";
+"browser_auth.identifying" = "アカウントを確認中…";
+"browser_auth.unknown_account" = "Claude アカウント";
+"browser_auth.used_by" = "プロファイル「%@」で使用中";
+"browser_auth.expired" = "セッションの期限切れまたはログアウト済み";
+"browser_auth.use" = "使用";
+"browser_auth.no_browser" = "対応ブラウザが見つかりません。Aitracker は Vivaldi、Chrome、Brave、Edge、Arc、Opera、Chromium、Firefox からセッションを読み取ります。";
+"browser_auth.multi_account_hint" = "別のアカウントを追加するには：ブラウザで claude.ai のアドレスの横にある鍵アイコン → Cookie とサイトデータ → claude.ai を削除します。次に上の「ログインを開く」をクリックし、別のアカウントでサインインします。claude.ai で「ログアウト」はクリックしないでください。Aitracker が保存済みのアカウントが切断されます。";
+"browser_auth.error.keychain_denied" = "macOS が Aitracker によるキーチェーンの「%@ Safe Storage」の読み取りを許可しませんでした。ブラウザの Cookie を復号するのに必要です。再試行して「常に許可」を選んでください。";
+"browser_auth.error.keychain_missing" = "%@ の Cookie 暗号鍵がキーチェーンに見つかりません。ブラウザを一度開いてから再試行してください。";
+"browser_auth.error.db_unreadable" = "ブラウザの Cookie データベースを読み取れませんでした（%@）。";
+"accounts.add" = "アカウントを追加";
+"accounts.add_description" = "ブラウザでサインインし、すべて自動で設定します。アカウントはいくつでも追加でき、メニューバーに並んで表示されます。";
+"accounts.added" = "「%@」を追加しました。ほかのアカウントと一緒に更新されます。";
+"accounts.reconnected" = "「%@」を再接続しました。";
+"general.refresh_every" = "更新間隔";
+"general.refresh_minutes" = "%d 分";
+"general.refresh_all_accounts" = "すべてのアカウントに適用されます。間隔を長くするとバッテリーと通信の消費が減ります。";
+"accounts.title" = "アカウント";
+"accounts.default_name" = "アカウント";
+"accounts.empty_title" = "アカウントがありません";
+"accounts.empty_description" = "AI アカウントを追加すると、上限とクレジットの使用量を確認できます。";
+"accounts.session" = "5 時間の上限";
+"accounts.weekly" = "週間の上限";
+"accounts.resets" = "リセット %@";
+"accounts.updated" = "更新 %@";
+"accounts.loading" = "使用量を読み込み中…";
+"accounts.needs_reconnect" = "切断済み — ••• → 再接続";
+"accounts.extra_usage" = "追加使用量";
+"accounts.extra_available" = "今月の残り %@";
+"accounts.credit_balance" = "クレジット残高";
+"accounts.row_summary" = "5 時間: %d%% · 週: %d%%";
+"accounts.reconnect" = "再接続";
+"accounts.remove" = "アカウントを削除";
+"accounts.remove_confirm" = "「%@」を Aitracker から削除しますか？";
+"settings.preferences" = "環境設定";
+"settings.launch_at_login" = "ログイン時に開く";
+"settings.quit" = "Aitracker を終了";
+"menubar_style.title" = "メニューバー";
+"menubar_style.bars" = "アカウントを並べて表示";
+"menubar_style.icon" = "アイコンのみ";
+"menubar_style.bars_help" = "アカウントごとに 1 本のバーで週間使用量を表示します。5 時間の上限に達している場合は、アカウントが今使えないため 100%（赤）になります。70% 未満は緑、90% までオレンジ、それ以上は赤です。";
+"accounts.blocked_until" = "上限に達しました · %@ に再開";
+"accounts.extra_left" = "残り %@";
+"accounts.codex_missing" = "この Mac で Codex にサインインしていません。Codex をインストールして「codex login」を実行してから、もう一度お試しください。";
+"accounts.codex_exists" = "ChatGPT（Codex）アカウントはすでに追加されています。";
+"accounts.kimi_missing" = "この Mac で Kimi Code にサインインしていません。Kimi Code CLI をインストールして「kimi login」を実行してから、もう一度お試しください。";
+"accounts.kimi_exists" = "Kimi Code アカウントはすでに追加されています。";
+"accounts.kimi_expired" = "Kimi のログインが期限切れです。もう一度「kimi login」を実行してください。";
+"accounts.deepseek_title" = "DeepSeek を追加";
+"accounts.deepseek_help" = "DeepSeek は従量課金のため、Aitracker は API のプリペイド残高を表示します。DeepSeek プラットフォームで API キーを作成してここに貼り付けてください。キーは Mac のキーチェーンに保存され、残高の確認にのみ使われます。";
+"accounts.deepseek_invalid" = "DeepSeek がこの API キーを拒否しました。";
+"accounts.balance_available" = "残高あり";
+"accounts.balance_empty" = "残高なし";
+"accounts.apikey_title" = "%@ を追加";
+"accounts.apikey_invalid" = "この API キーは拒否されました。";
+"accounts.credits_help" = "%@ は 3D 生成をプリペイドクレジットで課金するため、Aitracker はクレジット残高を表示します。%@ のアカウントで API キーを作成してここに貼り付けてください。キーは Mac のキーチェーンに保存され、残高の確認にのみ使われます（無料、クレジットは消費しません）。";
+"accounts.credits_amount" = "%@ クレジット";
+"accounts.credits_refill" = "月間クレジットの更新 %@";
+"accounts.credits_reserved" = "実行中のタスクで %@ を予約中";
+"settings.language" = "言語";
+"settings.language_system" = "システムと同じ";
+"settings.language_restart" = "新しい言語を適用するには Aitracker を再起動してください。";
+"settings.restart_now" = "今すぐ再起動";
+"settings.check_updates" = "アップデートを確認…";
+"settings.auto_updates" = "アップデートを自動で確認";

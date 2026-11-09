@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    Vietnamese (Tiếng Việt)
    Created by Claude Code on 2026-07-24.
@@ -9,10 +9,10 @@
 /* ==================== */
 /* MARK: - App Info */
 /* ==================== */
-"app.name" = "Claude Usage Tracker";
+"app.name" = "Aitracker";
 "app.window.main" = "Mức sử dụng Claude";
 "app.window.settings" = "Cài đặt";
-"app.window.github_prompt" = "Ủng hộ Claude Usage Tracker";
+"app.window.github_prompt" = "Ủng hộ Aitracker";
 
 /* ==================== */
 /* MARK: - Common Actions */
@@ -96,7 +96,7 @@
 /* MARK: - General Settings */
 /* ==================== */
 "general.launch_at_login" = "Khởi chạy khi đăng nhập";
-"general.launch_at_login.description" = "Tự động khởi chạy Claude Usage Tracker khi bạn đăng nhập vào Mac";
+"general.launch_at_login.description" = "Tự động khởi chạy Aitracker khi bạn đăng nhập vào Mac";
 "general.refresh_interval" = "Chu kỳ làm mới";
 "general.refresh_interval.description" = "Chu kỳ ngắn hơn cho dữ liệu theo thời gian thực chính xác hơn nhưng có thể ảnh hưởng đến thời lượng pin";
 "general.check_overage_limit" = "Kiểm tra giới hạn mức dùng thêm";
@@ -140,7 +140,7 @@
 /* ==================== */
 /* MARK: - Setup Wizard */
 /* ==================== */
-"setup.welcome.title" = "Chào mừng đến với Claude Usage Tracker";
+"setup.welcome.title" = "Chào mừng đến với Aitracker";
 "setup.welcome.subtitle" = "Cấu hình quyền truy cập API để bắt đầu theo dõi mức sử dụng";
 "setup.step.get_session_key" = "Lấy khoá phiên của bạn";
 "setup.step.get_session_key.description" = "Bạn cần trích xuất khoá phiên của mình từ claude.ai";
@@ -287,7 +287,7 @@
 /* ==================== */
 /* MARK: - GitHub Star Prompt */
 /* ==================== */
-"github.enjoy_app" = "Bạn thấy Claude Usage Tracker hữu ích?";
+"github.enjoy_app" = "Bạn thấy Aitracker hữu ích?";
 "github.star_description" = "Nếu ứng dụng này hữu ích với bạn, hãy cân nhắc gắn sao cho nó trên GitHub! Điều này giúp người khác khám phá dự án và khích lệ việc phát triển liên tục.";
 "github.star_button" = "Gắn sao trên GitHub";
 "github.maybe_later" = "Để sau";
@@ -824,7 +824,7 @@
 /* MARK: - Support View */
 /* ==================== */
 "support.title" = "Ủng hộ dự án";
-"support.subtitle" = "Claude Usage Tracker miễn phí và mã nguồn mở";
+"support.subtitle" = "Aitracker miễn phí và mã nguồn mở";
 "support.all_features_free" = "Mọi tính năng đều miễn phí";
 "support.all_features_desc" = "Mọi tính năng trong ứng dụng này đều hoàn toàn miễn phí. Không có gói cao cấp, không tường phí, không đăng ký trả phí.";
 "support.open_source" = "Mã nguồn mở";
@@ -1087,7 +1087,84 @@
 
 // MARK: - Terminal Launcher / Support
 "support.popup_title" = "Chào, mình là Hamed 👋";
-"support.popup_signature" = "đội một người đứng sau Claude Usage";
+"support.popup_signature" = "đội một người đứng sau Aitracker";
 "support.popup_body" = "Miễn phí, mã nguồn mở, do một người xây dựng — không quảng cáo, không theo dõi. Nếu nó từng giúp bạn khỏi lãng phí giới hạn phiên, một ly cà phê sẽ giúp nó tiếp tục.";
 "support.popup_days" = "Đồng hành cùng giới hạn của bạn %d ngày — luôn miễn phí";
 "support.popup_later" = "Để sau";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "Trình duyệt";
+"browser_auth.profile" = "Hồ sơ";
+"browser_auth.default_suffix" = "%@ (mặc định)";
+"browser_auth.open_login" = "Mở đăng nhập trong %@";
+"browser_auth.open_login_hint" = "Đã đăng nhập? Chỉ cần chọn tài khoản bên dưới. Nếu chưa, hãy mở trang đăng nhập, đăng nhập và Aitracker sẽ tự lấy phiên.";
+"browser_auth.waiting" = "Đang chờ bạn đăng nhập trong %@… Tự cập nhật — trình duyệt có thể mất tới 30 giây để lưu phiên.";
+"browser_auth.retry" = "Thử lại";
+"browser_auth.found_sessions" = "Tài khoản đã đăng nhập trong trình duyệt này";
+"browser_auth.no_sessions" = "Chưa tìm thấy phiên đăng nhập nào trong trình duyệt này.";
+"browser_auth.scanning" = "Đang đọc phiên trình duyệt…";
+"browser_auth.identifying" = "Đang xác định tài khoản…";
+"browser_auth.unknown_account" = "Tài khoản Claude";
+"browser_auth.used_by" = "Đã được hồ sơ “%@” sử dụng";
+"browser_auth.expired" = "Phiên đã hết hạn hoặc đã đăng xuất";
+"browser_auth.use" = "Dùng";
+"browser_auth.no_browser" = "Không tìm thấy trình duyệt được hỗ trợ. Aitracker đọc phiên từ Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium hoặc Firefox.";
+"browser_auth.multi_account_hint" = "Để thêm tài khoản khác: trong trình duyệt, bấm biểu tượng ổ khóa cạnh địa chỉ claude.ai → Cookie và dữ liệu trang web → xóa claude.ai. Sau đó bấm “Mở đăng nhập” ở trên và đăng nhập bằng tài khoản kia. Đừng bấm “Đăng xuất” trên claude.ai — việc đó sẽ ngắt kết nối tài khoản Aitracker đã lưu.";
+"browser_auth.error.keychain_denied" = "macOS không cho Aitracker đọc “%@ Safe Storage” trong Chuỗi khóa, cần thiết để giải mã cookie của trình duyệt. Bấm Thử lại và chọn “Luôn cho phép”.";
+"browser_auth.error.keychain_missing" = "Không tìm thấy khóa mã hóa cookie của %@ trong Chuỗi khóa. Hãy mở trình duyệt ít nhất một lần rồi thử lại.";
+"browser_auth.error.db_unreadable" = "Không đọc được cơ sở dữ liệu cookie của trình duyệt (%@).";
+"accounts.add" = "Thêm tài khoản";
+"accounts.add_description" = "Đăng nhập qua trình duyệt của bạn và tự thiết lập mọi thứ. Thêm bao nhiêu tài khoản cũng được — tất cả hiển thị cạnh nhau trên thanh menu.";
+"accounts.added" = "Đã thêm “%@”. Giờ tài khoản này được làm mới cùng các tài khoản khác.";
+"accounts.reconnected" = "Đã kết nối lại “%@”.";
+"general.refresh_every" = "Làm mới mỗi";
+"general.refresh_minutes" = "%d phút";
+"general.refresh_all_accounts" = "Áp dụng cho mọi tài khoản. Khoảng thời gian dài hơn tốn ít pin và mạng hơn.";
+"accounts.title" = "Tài khoản";
+"accounts.default_name" = "Tài khoản";
+"accounts.empty_title" = "Chưa có tài khoản";
+"accounts.empty_description" = "Thêm tài khoản AI của bạn để xem đã dùng bao nhiêu hạn mức và tín dụng.";
+"accounts.session" = "Hạn mức 5 giờ";
+"accounts.weekly" = "Hạn mức tuần";
+"accounts.resets" = "Đặt lại %@";
+"accounts.updated" = "Cập nhật %@";
+"accounts.loading" = "Đang tải mức sử dụng…";
+"accounts.needs_reconnect" = "Đã ngắt — dùng ••• → Kết nối lại";
+"accounts.extra_usage" = "Sử dụng thêm";
+"accounts.extra_available" = "Tháng này còn %@";
+"accounts.credit_balance" = "Số dư tín dụng";
+"accounts.row_summary" = "5 giờ: %d%% · Tuần: %d%%";
+"accounts.reconnect" = "Kết nối lại";
+"accounts.remove" = "Xóa tài khoản";
+"accounts.remove_confirm" = "Xóa “%@” khỏi Aitracker?";
+"settings.preferences" = "Tùy chọn";
+"settings.launch_at_login" = "Mở khi đăng nhập";
+"settings.quit" = "Thoát Aitracker";
+"menubar_style.title" = "Thanh menu";
+"menubar_style.bars" = "Các tài khoản cạnh nhau";
+"menubar_style.icon" = "Chỉ biểu tượng";
+"menubar_style.bars_help" = "Mỗi tài khoản một thanh, lấp đầy theo mức dùng trong tuần. Nếu đã hết hạn mức 5 giờ, thanh hiển thị 100% (màu đỏ) vì tài khoản đang bị chặn. Xanh dưới 70%, cam đến 90%, đỏ khi cao hơn.";
+"accounts.blocked_until" = "Đã chạm hạn mức · mở lại lúc %@";
+"accounts.extra_left" = "Còn %@";
+"accounts.codex_missing" = "Codex chưa đăng nhập trên máy Mac này. Hãy cài Codex và chạy “codex login”, rồi thử lại.";
+"accounts.codex_exists" = "Tài khoản ChatGPT (Codex) của bạn đã được thêm.";
+"accounts.kimi_missing" = "Kimi Code chưa đăng nhập trên máy Mac này. Hãy cài Kimi Code CLI và chạy “kimi login”, rồi thử lại.";
+"accounts.kimi_exists" = "Tài khoản Kimi Code của bạn đã được thêm.";
+"accounts.kimi_expired" = "Phiên đăng nhập Kimi đã hết hạn. Hãy chạy lại “kimi login”.";
+"accounts.deepseek_title" = "Thêm DeepSeek";
+"accounts.deepseek_help" = "DeepSeek tính phí theo mức dùng, nên Aitracker hiển thị số dư trả trước của API. Hãy tạo khóa API trên nền tảng DeepSeek rồi dán vào đây — khóa được lưu trong Chuỗi khóa của máy Mac và chỉ dùng để đọc số dư.";
+"accounts.deepseek_invalid" = "DeepSeek đã từ chối khóa API này.";
+"accounts.balance_available" = "Còn số dư";
+"accounts.balance_empty" = "Hết số dư";
+"accounts.apikey_title" = "Thêm %@";
+"accounts.apikey_invalid" = "Khóa API này đã bị từ chối.";
+"accounts.credits_help" = "%@ tính phí tạo mô hình 3D bằng tín dụng trả trước, nên Aitracker hiển thị số dư tín dụng của bạn. Hãy tạo khóa API trong tài khoản %@ rồi dán vào đây — khóa được lưu trong Chuỗi khóa của máy Mac và chỉ dùng để đọc số dư (miễn phí, không tốn tín dụng).";
+"accounts.credits_amount" = "%@ tín dụng";
+"accounts.credits_refill" = "tín dụng hằng tháng gia hạn %@";
+"accounts.credits_reserved" = "%@ được giữ cho các tác vụ đang chạy";
+"settings.language" = "Ngôn ngữ";
+"settings.language_system" = "Theo hệ thống";
+"settings.language_restart" = "Khởi động lại Aitracker để áp dụng ngôn ngữ mới.";
+"settings.restart_now" = "Khởi động lại ngay";
+"settings.check_updates" = "Kiểm tra cập nhật…";
+"settings.auto_updates" = "Tự động kiểm tra cập nhật";

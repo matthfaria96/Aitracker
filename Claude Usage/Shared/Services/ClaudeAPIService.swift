@@ -132,11 +132,25 @@ class ClaudeAPIService: APIServiceProtocol {
     /// challenged or rejected with E3000 permission errors even when the
     /// session is valid (#204, #277) — every claude.ai call must go through
     /// this, not just `performRequest`.
+    ///
+    /// Multi-account isolation: every profile shares `URLSession.shared` and its
+    /// cookie jar, so an account-bound cookie a response set for one account
+    /// (`sessionKey`, `lastActiveOrg`, routing hints…) would otherwise ride along
+    /// on the next request made for a *different* account — two seats of the
+    /// same organization would then report the same usage. Only the
+    /// account-neutral Cloudflare/device cookies are kept; everything else for
+    /// this host is evicted from the shared jar before each request.
     static func sessionCookieHeader(sessionKey: String, url: URL) -> String {
+        let accountNeutral: Set<String> = ["cf_clearance", "__cf_bm", "anthropic-device-id"]
         var cookiePairs = ["sessionKey=\(sessionKey)"]
-        if let stored = HTTPCookieStorage.shared.cookies(for: url) {
-            for cookie in stored where ["cf_clearance", "__cf_bm", "anthropic-device-id"].contains(cookie.name) {
-                cookiePairs.append("\(cookie.name)=\(cookie.value)")
+        let storage = HTTPCookieStorage.shared
+        if let stored = storage.cookies(for: url) {
+            for cookie in stored {
+                if accountNeutral.contains(cookie.name) {
+                    cookiePairs.append("\(cookie.name)=\(cookie.value)")
+                } else {
+                    storage.deleteCookie(cookie)
+                }
             }
         }
         return cookiePairs.joined(separator: "; ")

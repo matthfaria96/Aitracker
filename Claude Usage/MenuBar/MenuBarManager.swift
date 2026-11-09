@@ -101,6 +101,7 @@ class MenuBarManager: NSObject, ObservableObject {
 
     // Observer for display mode changes (single/multi profile)
     private var displayModeObserver: NSObjectProtocol?
+    private var refreshIntervalChangedObserver: NSObjectProtocol?
 
     // Observer for screen/display changes (headless mode support)
     private var screenObserver: NSObjectProtocol?
@@ -128,6 +129,9 @@ class MenuBarManager: NSObject, ObservableObject {
         // Initialize status bar UI manager
         statusBarUIManager = StatusBarUIManager()
         statusBarUIManager?.delegate = self
+
+        // Aitracker always tracks every account at once.
+        profileManager.setDisplayModeImmediately(.multi)
 
         // Check if we should use multi-profile mode
         if profileManager.displayMode == .multi {
@@ -236,26 +240,7 @@ class MenuBarManager: NSObject, ObservableObject {
         // Setup wake-from-sleep observer for auto-refresh
         setupWakeObserver()
 
-        // Setup global keyboard shortcuts
-        setupShortcuts()
 
-    }
-
-    private func setupShortcuts() {
-        let shortcutManager = ShortcutManager.shared
-        shortcutManager.onTogglePopover = { [weak self] in
-            self?.togglePopover(nil)
-        }
-        shortcutManager.onRefresh = { [weak self] in
-            self?.refreshUsage()
-        }
-        shortcutManager.onOpenSettings = { [weak self] in
-            self?.preferencesClicked()
-        }
-        shortcutManager.onNextProfile = { [weak self] in
-            self?.switchToNextProfile()
-        }
-        shortcutManager.startListening()
     }
 
     func cleanup() {
@@ -477,8 +462,10 @@ class MenuBarManager: NSObject, ObservableObject {
         refreshTimer = nil
 
         refreshTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            self?.lastAutoRefreshTime = Date()
             self?.refreshUsage()
         }
+        refreshTimer?.tolerance = interval * 0.1
 
         LoggingService.shared.log("Updated refresh interval to \(interval)s")
     }
@@ -859,6 +846,18 @@ class MenuBarManager: NSObject, ObservableObject {
     }
 
     private func observeDisplayModeChanges() {
+        // Apply a new refresh interval immediately (not only on the next profile switch)
+        refreshIntervalChangedObserver = NotificationCenter.default.addObserver(
+            forName: .refreshIntervalChanged,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor in
+                guard let self, let interval = self.profileManager.activeProfile?.refreshInterval else { return }
+                self.restartAutoRefreshWithInterval(interval)
+            }
+        }
+
         // Observe display mode changes (single/multi profile)
         displayModeObserver = NotificationCenter.default.addObserver(
             forName: .displayModeChanged,
@@ -1600,33 +1599,30 @@ class MenuBarManager: NSObject, ObservableObject {
     }
 
     @objc private func preferencesClicked() {
-        // Close the popover or detached window first
+        openSettings()
+    }
+
+    /// Opens the (single, simple) settings window.
+    func openSettings(startWithAddAccount: Bool = false) {
         closePopoverOrWindow()
 
-        // If settings window already exists, just bring it to front
         if let existingWindow = settingsWindow, existingWindow.isVisible {
             existingWindow.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             return
         }
 
-        // Small delay to ensure smooth transition
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            // Temporarily show dock icon for the settings window (like setup wizard)
-            NSApp.setActivationPolicy(.regular)
-
-            // Create and show the settings window
-            let window = SettingsWindowBuilder.makeWindow(size: Constants.WindowSizes.settingsWindow)
-            window.title = "Claude Usage - Settings"
-            window.center()
-            window.isReleasedWhenClosed = false
-            window.delegate = self
-
-            self.settingsWindow = window
-
-            window.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-        }
+        NSApp.setActivationPolicy(.regular)
+        let hosting = NSHostingController(rootView: SimpleSettingsView(startWithAddAccount: startWithAddAccount))
+        let window = NSWindow(contentViewController: hosting)
+        window.title = "Aitracker"
+        window.styleMask = [.titled, .closable, .miniaturizable]
+        window.isReleasedWhenClosed = false
+        window.delegate = self
+        window.center()
+        settingsWindow = window
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     private func switchToNextProfile() {

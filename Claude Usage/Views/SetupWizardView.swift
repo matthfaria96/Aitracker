@@ -61,6 +61,8 @@ struct SetupWizardView: View {
                         setupMode = .loading
                     case .codex:
                         setupMode = .codexSetup
+                    case .kimi, .deepseek, .meshy, .tripo:
+                        dismiss()
                     }
                 },
                 onSkip: { dismiss() }
@@ -372,7 +374,7 @@ struct EnterKeyStepSetup: View {
                         .disabled(wizardState.validationState == .validating)
                     }
                     .sheet(isPresented: $wizardState.showingAuthSheet) {
-                        ConsoleAuthSheet(
+                        BrowserAuthSheet(
                             title: "personal.signin_sheet_title".localized,
                             loginURL: URL(string: "https://claude.ai/login")!,
                             cookieDomain: "claude.ai",

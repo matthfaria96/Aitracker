@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    简体中文 (简体中文)
    Created by Claude Code on 2026-01-27.
@@ -9,10 +9,10 @@
 /* ==================== */
 /* MARK: - App Info */
 /* ==================== */
-"app.name" = "Claude Usage Tracker";
-"app.window.main" = "Claude Usage";
+"app.name" = "Aitracker";
+"app.window.main" = "Aitracker";
 "app.window.settings" = "设置";
-"app.window.github_prompt" = "支持 Claude Usage Tracker";
+"app.window.github_prompt" = "支持 Aitracker";
 
 /* ==================== */
 /* MARK: - Common Actions */
@@ -97,7 +97,7 @@
 /* MARK: - General Settings */
 /* ==================== */
 "general.launch_at_login" = "登录时启动";
-"general.launch_at_login.description" = "登录 Mac 时自动启动 Claude Usage Tracker";
+"general.launch_at_login.description" = "登录 Mac 时自动启动 Aitracker";
 "general.refresh_interval" = "刷新间隔";
 "general.refresh_interval.description" = "较短的间隔提供更实时的数据，但可能影响电池寿命";
 "general.check_overage_limit" = "检查额外使用限制";
@@ -141,7 +141,7 @@
 /* ==================== */
 /* MARK: - Setup Wizard */
 /* ==================== */
-"setup.welcome.title" = "欢迎使用 Claude Usage Tracker";
+"setup.welcome.title" = "欢迎使用 Aitracker";
 "setup.welcome.subtitle" = "配置您的 API 访问以开始跟踪使用情况";
 "setup.step.get_session_key" = "获取您的会话密钥";
 "setup.step.get_session_key.description" = "您需要从 claude.ai 提取您的会话密钥";
@@ -288,7 +288,7 @@
 /* ==================== */
 /* MARK: - GitHub Star Prompt */
 /* ==================== */
-"github.enjoy_app" = "喜欢 Claude Usage Tracker 吗？";
+"github.enjoy_app" = "喜欢 Aitracker 吗？";
 "github.star_description" = "如果这个应用对您有帮助，请在 GitHub 上给它标星！这有助于其他人发现项目并激励持续开发。";
 "github.star_button" = "在 GitHub 上标星";
 "github.maybe_later" = "稍后再说";
@@ -1076,6 +1076,83 @@
 "launcher.install_failed" = "无法安装启动器：%@";
 "support.popup_title" = "你好，我是 Hamed 👋";
 "support.popup_later" = "以后再说";
-"support.popup_signature" = "Claude Usage 背后的一人团队";
+"support.popup_signature" = "Aitracker 背后的一人团队";
 "support.popup_body" = "免费、开源、一人开发——没有广告，没有跟踪。如果它曾帮你避免烧掉会话额度，一杯咖啡就能让它继续前进。";
 "support.popup_days" = "已守护你的额度 %d 天 — 永久免费";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "浏览器";
+"browser_auth.profile" = "用户配置";
+"browser_auth.default_suffix" = "%@（默认）";
+"browser_auth.open_login" = "在 %@ 中打开登录";
+"browser_auth.open_login_hint" = "已经登录？直接在下方选择账户即可。否则请打开登录页面并登录，Aitracker 会自动获取会话。";
+"browser_auth.waiting" = "正在等待你在 %@ 中登录… 会自动更新，浏览器保存会话最多可能需要 30 秒。";
+"browser_auth.retry" = "重试";
+"browser_auth.found_sessions" = "此浏览器中已登录的账户";
+"browser_auth.no_sessions" = "此浏览器中还没有已登录的会话。";
+"browser_auth.scanning" = "正在读取浏览器会话…";
+"browser_auth.identifying" = "正在识别账户…";
+"browser_auth.unknown_account" = "Claude 账户";
+"browser_auth.used_by" = "已被配置“%@”使用";
+"browser_auth.expired" = "会话已过期或已退出";
+"browser_auth.use" = "使用";
+"browser_auth.no_browser" = "未找到受支持的浏览器。Aitracker 可从 Vivaldi、Chrome、Brave、Edge、Arc、Opera、Chromium 或 Firefox 读取会话。";
+"browser_auth.multi_account_hint" = "添加其他账户：在浏览器中点按 claude.ai 地址旁的锁形图标 → Cookie 和网站数据 → 删除 claude.ai。然后点按上方的“打开登录”，用另一个账户登录。不要在 claude.ai 上点按“退出登录”，否则会断开 Aitracker 已保存的账户。";
+"browser_auth.error.keychain_denied" = "macOS 不允许 Aitracker 读取钥匙串中的“%@ Safe Storage”，而解密浏览器 Cookie 需要它。请点按“重试”并选择“始终允许”。";
+"browser_auth.error.keychain_missing" = "在钥匙串中找不到 %@ 的 Cookie 加密密钥。请至少打开一次浏览器后重试。";
+"browser_auth.error.db_unreadable" = "无法读取浏览器 Cookie 数据库（%@）。";
+"accounts.add" = "添加账户";
+"accounts.add_description" = "通过浏览器登录并自动完成设置。可添加任意多个账户，它们会并排显示在菜单栏中。";
+"accounts.added" = "已添加“%@”，现在会和其他账户一起刷新。";
+"accounts.reconnected" = "已重新连接“%@”。";
+"general.refresh_every" = "刷新间隔";
+"general.refresh_minutes" = "%d 分钟";
+"general.refresh_all_accounts" = "适用于所有账户。间隔越长，耗电和流量越少。";
+"accounts.title" = "账户";
+"accounts.default_name" = "账户";
+"accounts.empty_title" = "还没有账户";
+"accounts.empty_description" = "添加你的 AI 账户，查看额度和积分的使用情况。";
+"accounts.session" = "5 小时额度";
+"accounts.weekly" = "每周额度";
+"accounts.resets" = "%@重置";
+"accounts.updated" = "%@更新";
+"accounts.loading" = "正在载入用量…";
+"accounts.needs_reconnect" = "已断开 — 使用 ••• → 重新连接";
+"accounts.extra_usage" = "额外用量";
+"accounts.extra_available" = "本月还剩 %@";
+"accounts.credit_balance" = "积分余额";
+"accounts.row_summary" = "5 小时：%d%% · 本周：%d%%";
+"accounts.reconnect" = "重新连接";
+"accounts.remove" = "移除账户";
+"accounts.remove_confirm" = "要从 Aitracker 中移除“%@”吗？";
+"settings.preferences" = "偏好设置";
+"settings.launch_at_login" = "登录时打开";
+"settings.quit" = "退出 Aitracker";
+"menubar_style.title" = "菜单栏";
+"menubar_style.bars" = "账户并排显示";
+"menubar_style.icon" = "仅图标";
+"menubar_style.bars_help" = "每个账户一根条，按每周用量填充。如果 5 小时额度已用完，账户当前被限制，条会显示 100%（红色）。低于 70% 为绿色，90% 以内为橙色，以上为红色。";
+"accounts.blocked_until" = "已达上限 · %@ 恢复";
+"accounts.extra_left" = "剩余 %@";
+"accounts.codex_missing" = "此 Mac 上未登录 Codex。请安装 Codex 并运行“codex login”，然后重试。";
+"accounts.codex_exists" = "你的 ChatGPT（Codex）账户已添加。";
+"accounts.kimi_missing" = "此 Mac 上未登录 Kimi Code。请安装 Kimi Code CLI 并运行“kimi login”，然后重试。";
+"accounts.kimi_exists" = "你的 Kimi Code 账户已添加。";
+"accounts.kimi_expired" = "Kimi 登录已过期，请重新运行“kimi login”。";
+"accounts.deepseek_title" = "添加 DeepSeek";
+"accounts.deepseek_help" = "DeepSeek 按用量计费，因此 Aitracker 显示你的 API 预付余额。请在 DeepSeek 平台创建 API 密钥并粘贴到这里。密钥保存在 Mac 的钥匙串中，仅用于读取余额。";
+"accounts.deepseek_invalid" = "DeepSeek 拒绝了此 API 密钥。";
+"accounts.balance_available" = "有余额";
+"accounts.balance_empty" = "余额不足";
+"accounts.apikey_title" = "添加 %@";
+"accounts.apikey_invalid" = "此 API 密钥被拒绝。";
+"accounts.credits_help" = "%@ 以预付积分计费 3D 生成，因此 Aitracker 显示你的积分余额。请在你的 %@ 账户中创建 API 密钥并粘贴到这里。密钥保存在 Mac 的钥匙串中，仅用于读取余额（免费，不消耗积分）。";
+"accounts.credits_amount" = "%@ 积分";
+"accounts.credits_refill" = "每月积分%@续期";
+"accounts.credits_reserved" = "运行中的任务预留了 %@";
+"settings.language" = "语言";
+"settings.language_system" = "跟随系统";
+"settings.language_restart" = "重新启动 Aitracker 以应用新语言。";
+"settings.restart_now" = "立即重新启动";
+"settings.check_updates" = "检查更新…";
+"settings.auto_updates" = "自动检查更新";

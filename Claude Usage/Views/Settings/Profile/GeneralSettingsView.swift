@@ -34,34 +34,26 @@ struct GeneralSettingsView: View {
                                     .foregroundColor(DesignTokens.Colors.accent)
                                     .frame(width: DesignTokens.Spacing.iconFrame)
 
-                                Text(String(format: "general.refresh_seconds".localized, Int(profile.refreshInterval)))
+                                Text("general.refresh_every".localized)
                                     .font(DesignTokens.Typography.bodyMedium)
 
                                 Spacer()
-                            }
 
-                            Slider(
-                                value: Binding(
-                                    get: { profile.refreshInterval },
-                                    set: { newValue in
-                                        var updated = profile
-                                        updated.refreshInterval = newValue
-                                        profileManager.updateProfile(updated)
+                                Picker("", selection: Binding(
+                                    get: { Self.closestPreset(to: profile.refreshInterval) },
+                                    set: { newValue in applyRefreshIntervalToAllAccounts(newValue) }
+                                )) {
+                                    ForEach(Self.refreshPresets, id: \.self) { seconds in
+                                        Text(Self.label(for: seconds)).tag(seconds)
                                     }
-                                ),
-                                in: 10...300,
-                                step: 10
-                            )
-
-                            HStack {
-                                Text("general.refresh_min".localized)
-                                    .font(DesignTokens.Typography.caption)
-                                    .foregroundColor(.secondary)
-                                Spacer()
-                                Text("general.refresh_max".localized)
-                                    .font(DesignTokens.Typography.caption)
-                                    .foregroundColor(.secondary)
+                                }
+                                .labelsHidden()
+                                .frame(width: 140)
                             }
+
+                            Text("general.refresh_all_accounts".localized)
+                                .font(DesignTokens.Typography.caption)
+                                .foregroundColor(.secondary)
                         }
                     }
 
@@ -246,6 +238,30 @@ struct GeneralSettingsView: View {
                 }
             }
         }
+    }
+
+    // MARK: - Refresh interval
+
+    static let refreshPresets: [TimeInterval] = [30, 60, 120, 300, 600, 900, 1800]
+
+    static func closestPreset(to value: TimeInterval) -> TimeInterval {
+        refreshPresets.min { abs($0 - value) < abs($1 - value) } ?? 60
+    }
+
+    static func label(for seconds: TimeInterval) -> String {
+        seconds < 60
+            ? String(format: "general.refresh_seconds".localized, Int(seconds))
+            : String(format: "general.refresh_minutes".localized, Int(seconds / 60))
+    }
+
+    /// One interval for every account: in multi-account mode all accounts
+    /// refresh on the same timer, so per-profile values would be misleading.
+    private func applyRefreshIntervalToAllAccounts(_ seconds: TimeInterval) {
+        for var profile in profileManager.profiles where profile.refreshInterval != seconds {
+            profile.refreshInterval = seconds
+            profileManager.updateProfile(profile)
+        }
+        NotificationCenter.default.post(name: .refreshIntervalChanged, object: nil)
     }
 }
 

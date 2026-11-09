@@ -5,6 +5,7 @@
 //  Sparkle update manager wrapper
 //
 
+import AppKit
 import Foundation
 import Combine
 import Sparkle
@@ -24,9 +25,13 @@ final class UpdateUserDriver: NSObject, SPUStandardUserDriverDelegate {
 
     // Customize how updates are shown
     func standardUserDriverWillHandleShowingUpdate(_ handleShowingUpdate: Bool, forUpdate update: SUAppcastItem, state: SPUUserUpdateState) {
-        if handleShowingUpdate {
-            LoggingService.shared.logInfo("Showing update alert for version \(update.displayVersionString)")
+        // Menu bar app: without a Dock icon a scheduled update window would sit
+        // behind other apps, unseen. Regular app for the length of the session.
+        if NSApp.activationPolicy() != .regular { NSApp.setActivationPolicy(.regular) }
+        if !state.userInitiated, !NSApp.isActive {
+            NSApp.requestUserAttention(.informationalRequest)
         }
+        LoggingService.shared.logInfo("Showing update alert for version \(update.displayVersionString)")
     }
 
     // Optional: Handle when user interacts with update
@@ -36,6 +41,9 @@ final class UpdateUserDriver: NSObject, SPUStandardUserDriverDelegate {
 
     // Optional: Cleanup when update session finishes
     func standardUserDriverWillFinishUpdateSession() {
+        // Back to the menu bar, unless the settings window still needs the Dock icon.
+        let windowOpen = NSApp.windows.contains { $0.isVisible && $0.title == "Aitracker" }
+        if !windowOpen { NSApp.setActivationPolicy(.accessory) }
         LoggingService.shared.logInfo("Update session finished")
     }
 }

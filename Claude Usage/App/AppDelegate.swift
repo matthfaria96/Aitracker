@@ -21,84 +21,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         // Load profiles into ProfileManager (synchronously)
         ProfileManager.shared.loadProfiles()
 
-        // Regenerate installed statusline scripts so they pick up format changes
-        // across app updates and re-embed fresh Cloudflare clearance cookies.
-        try? StatuslineService.shared.updateScriptsIfInstalled()
-
-        // Initialize update manager to enable automatic update checks
+        // In-app updates (daily check, witchmymac.com feed)
         _ = UpdateManager.shared
-
-        // Monthly support reminder (first check is delayed past startup)
-        SupportReminderService.shared.start()
 
         // Request notification permissions
         requestNotificationPermissions()
 
-        // Listen for manual wizard trigger (for testing)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleShowSetupWizard),
-            name: .showSetupWizard,
-            object: nil
-        )
-
-        // Always create the menu bar manager up front. On macOS Tahoe the setup
-        // wizard window may fail to display (see #197), and if the manager was
-        // only instantiated inside the wizard's close handler the menu bar icon
-        // would never appear. Creating it here guarantees the app has a working
-        // `menuBarManager` reference even if the wizard never visibly opens.
+        // Create the menu bar up front (see #197: the window may fail to show on Tahoe).
         menuBarManager = MenuBarManager()
+        menuBarManager?.setup()
 
-        // Start 24-hour heartbeat ping to track active app usage
-        HeartbeatService.shared.start()
-
-        // Claude Code notch HUD (opt-in): start the hook listener + HUD when
-        // enabled, and react to the settings toggle at runtime.
-        updateNotchHUDServices()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleNotchHUDSettingChanged),
-            name: .notchHUDSettingChanged,
-            object: nil
-        )
-
-        if !shouldShowSetupWizard() {
-            // Initialize menu bar with active profile
-            menuBarManager?.setup()
-        } else {
-            showSetupWizardManually()
-            // Mark that wizard has been shown once
-            SharedDataStore.shared.markWizardShown()
-        }
-
-        // Track first launch date for GitHub star prompt
-        if SharedDataStore.shared.loadFirstLaunchDate() == nil {
-            SharedDataStore.shared.saveFirstLaunchDate(Date())
-        }
-
-        // TESTING: Check for launch argument to force GitHub star prompt
-        if CommandLine.arguments.contains("--show-github-prompt") {
-            SharedDataStore.shared.resetGitHubStarPromptForTesting()
-            SharedDataStore.shared.saveFirstLaunchDate(Date().addingTimeInterval(-2 * 24 * 60 * 60))
-        }
-
-        // TESTING: Check for launch argument to force feedback prompt
-        if CommandLine.arguments.contains("--show-feedback-prompt") {
-            SharedDataStore.shared.resetFeedbackPromptForTesting()
-            SharedDataStore.shared.saveFirstLaunchDate(Date().addingTimeInterval(-8 * 24 * 60 * 60))
-        }
-
-        // Check if we should show GitHub star prompt (with a slight delay to not interrupt app startup)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            if SharedDataStore.shared.shouldShowGitHubStarPrompt() {
-                self?.menuBarManager?.showGitHubStarPrompt()
-            }
-        }
-
-        // Check if we should show feedback prompt (after GitHub prompt, avoid overlap)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) { [weak self] in
-            if SharedDataStore.shared.shouldShowFeedbackPrompt() {
-                self?.menuBarManager?.showFeedbackPrompt()
+        // No account yet → open the window straight into "Add account".
+        let hasAccount = ProfileManager.shared.profiles.contains { $0.claudeSessionKey != nil }
+        if !hasAccount {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.menuBarManager?.openSettings(startWithAddAccount: true)
             }
         }
 
@@ -206,7 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         LoggingService.shared.log("AppDelegate: Created hosting controller")
 
         let window = NSWindow(contentViewController: hostingController)
-        window.title = "Claude Usage Tracker Setup"
+        window.title = "Aitracker Setup"
         window.styleMask = [.titled, .closable, .fullSizeContentView]
         window.center()
         window.isReleasedWhenClosed = false
@@ -235,9 +172,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        // Cleanup
-        NotchHookServer.shared.stop()
-        NotchHUDController.shared.stop()
         menuBarManager?.cleanup()
     }
 

@@ -32,8 +32,13 @@ final class CodexUsageProvider: UsageProviderService {
         // record into its history) another account's stats. Mirrors the
         // Anthropic provider's system-keychain rule.
         if profile.codexCredentialsJSON == nil {
-            let activeProfileId = await MainActor.run { ProfileManager.shared.activeProfile?.id }
-            guard profile.id == activeProfileId else {
+            let (activeProfileId, codexProfileCount) = await MainActor.run {
+                (ProfileManager.shared.activeProfile?.id,
+                 ProfileManager.shared.profiles.filter { $0.provider == .codex }.count)
+            }
+            // Aitracker shows every account at once; with a single Codex
+            // profile there is no other account auth.json could belong to.
+            guard profile.id == activeProfileId || codexProfileCount == 1 else {
                 throw AppError(
                     code: .providerCredentialsNotFound,
                     message: "error.codex_credentials_not_found".localized,

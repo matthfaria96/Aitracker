@@ -35,9 +35,6 @@ class ProfileManager: ObservableObject {
             let defaultProfile = createDefaultProfile()
             profiles = [defaultProfile]
             profileStore.saveProfiles(profiles)
-
-            // On first launch, try to sync CLI credentials to the new default profile
-            syncCLICredentialsToDefaultProfile(defaultProfile.id)
         }
 
         // Load active profile
@@ -78,7 +75,7 @@ class ProfileManager: ObservableObject {
             provider: provider,
             hasCliAccount: false,
             iconConfig: iconConfig,
-            refreshInterval: copySettingsFrom?.refreshInterval ?? 30.0,
+            refreshInterval: copySettingsFrom?.refreshInterval ?? 120.0,
             autoStartSessionEnabled: copySettingsFrom?.autoStartSessionEnabled ?? false,
             checkOverageLimitEnabled: copySettingsFrom?.checkOverageLimitEnabled ?? true,
             notificationSettings: copySettingsFrom?.notificationSettings ?? NotificationSettings(),
@@ -165,6 +162,13 @@ class ProfileManager: ObservableObject {
         displayMode == .single
             ? [activeProfile].compactMap { $0 }
             : profiles.filter { $0.isSelectedForDisplay }
+    }
+
+    /// Synchronous variant used at startup, before the menu bar is built.
+    func setDisplayModeImmediately(_ mode: ProfileDisplayMode) {
+        guard displayMode != mode else { return }
+        displayMode = mode
+        profileStore.saveDisplayMode(mode)
     }
 
     func updateDisplayMode(_ mode: ProfileDisplayMode) {
@@ -559,9 +563,9 @@ class ProfileManager: ObservableObject {
 
     private func createDefaultProfile() -> Profile {
         Profile(
-            name: FunnyNameGenerator.getRandomName(excluding: []),
+            name: "accounts.default_name".localized,
             iconConfig: .default,
-            refreshInterval: 30.0,
+            refreshInterval: 120.0,
             autoStartSessionEnabled: false,
             checkOverageLimitEnabled: true,
             notificationSettings: NotificationSettings()

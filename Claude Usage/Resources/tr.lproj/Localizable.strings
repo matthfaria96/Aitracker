@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    Turkish (Türkçe)
    Created by Claude Code on 2026-03-10.
@@ -1082,6 +1082,83 @@
 "launcher.install_failed" = "Başlatıcı yüklenemedi: %@";
 "support.popup_title" = "Merhaba, ben Hamed 👋";
 "support.popup_later" = "Belki sonra";
-"support.popup_signature" = "Claude Usage'ın arkasındaki tek kişilik ekip";
+"support.popup_signature" = "Aitracker'ın arkasındaki tek kişilik ekip";
 "support.popup_body" = "Ücretsiz, açık kaynak, tek kişi tarafından yapıldı — reklam yok, izleme yok. Sizi bir oturum limitini yakmaktan kurtardıysa, bir kahve onu ayakta tutar.";
 "support.popup_days" = "%d gündür limitlerinizi izliyor — her zaman ücretsiz";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "Tarayıcı";
+"browser_auth.profile" = "Profil";
+"browser_auth.default_suffix" = "%@ (varsayılan)";
+"browser_auth.open_login" = "Girişi %@ içinde aç";
+"browser_auth.open_login_hint" = "Zaten giriş yaptınız mı? Aşağıdan hesabı seçmeniz yeterli. Yapmadıysanız giriş sayfasını açın, giriş yapın; Aitracker oturumu otomatik olarak alır.";
+"browser_auth.waiting" = "%@ içinde giriş yapmanız bekleniyor… Kendiliğinden güncellenir; tarayıcının oturumu kaydetmesi 30 saniyeyi bulabilir.";
+"browser_auth.retry" = "Tekrar Dene";
+"browser_auth.found_sessions" = "Bu tarayıcıda oturum açık hesaplar";
+"browser_auth.no_sessions" = "Bu tarayıcıda henüz açık oturum bulunamadı.";
+"browser_auth.scanning" = "Tarayıcı oturumu okunuyor…";
+"browser_auth.identifying" = "Hesap belirleniyor…";
+"browser_auth.unknown_account" = "Claude hesabı";
+"browser_auth.used_by" = "Zaten “%@” profili kullanıyor";
+"browser_auth.expired" = "Oturum süresi doldu veya çıkış yapıldı";
+"browser_auth.use" = "Kullan";
+"browser_auth.no_browser" = "Desteklenen tarayıcı bulunamadı. Aitracker oturumu Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium veya Firefox'tan okur.";
+"browser_auth.multi_account_hint" = "Başka bir hesap eklemek için: tarayıcıda claude.ai adresinin yanındaki kilide tıklayın → Çerezler ve site verileri → claude.ai'yi silin. Ardından yukarıdaki “Girişi aç”a tıklayıp diğer hesapla giriş yapın. claude.ai'de “Çıkış yap”a tıklamayın; Aitracker'ın kaydettiği hesabın bağlantısı kesilir.";
+"browser_auth.error.keychain_denied" = "macOS, Aitracker'ın Anahtar Zinciri'nden “%@ Safe Storage” okumasına izin vermedi; bu, tarayıcı çerezlerini çözmek için gerekli. Tekrar Dene'ye tıklayıp “Her Zaman İzin Ver”i seçin.";
+"browser_auth.error.keychain_missing" = "%@ için çerez şifreleme anahtarı Anahtar Zinciri'nde bulunamadı. Tarayıcıyı en az bir kez açıp tekrar deneyin.";
+"browser_auth.error.db_unreadable" = "Tarayıcının çerez veritabanı okunamadı (%@).";
+"accounts.add" = "Hesap Ekle";
+"accounts.add_description" = "Tarayıcınızla giriş yapar ve her şeyi ayarlar. İstediğiniz kadar hesap ekleyin; hepsi menü çubuğunda yan yana görünür.";
+"accounts.added" = "“%@” eklendi. Artık diğer hesaplarınızla birlikte yenileniyor.";
+"accounts.reconnected" = "“%@” yeniden bağlandı.";
+"general.refresh_every" = "Yenileme sıklığı";
+"general.refresh_minutes" = "%d dk";
+"general.refresh_all_accounts" = "Tüm hesaplara uygulanır. Uzun aralıklar daha az pil ve ağ kullanır.";
+"accounts.title" = "Hesaplar";
+"accounts.default_name" = "Hesap";
+"accounts.empty_title" = "Henüz hesap yok";
+"accounts.empty_description" = "Limitlerinizin ve kredilerinizin ne kadarını kullandığınızı görmek için yapay zekâ hesaplarınızı ekleyin.";
+"accounts.session" = "5 saatlik limit";
+"accounts.weekly" = "Haftalık limit";
+"accounts.resets" = "Sıfırlanma %@";
+"accounts.updated" = "Güncellendi %@";
+"accounts.loading" = "Kullanım yükleniyor…";
+"accounts.needs_reconnect" = "Bağlantı kesildi — ••• → Yeniden Bağlan";
+"accounts.extra_usage" = "Ek kullanım";
+"accounts.extra_available" = "Bu ay hâlâ %@ kullanılabilir";
+"accounts.credit_balance" = "Kredi bakiyesi";
+"accounts.row_summary" = "5 sa: %%%d · Hafta: %%%d";
+"accounts.reconnect" = "Yeniden Bağlan";
+"accounts.remove" = "Hesabı Kaldır";
+"accounts.remove_confirm" = "“%@” Aitracker'dan kaldırılsın mı?";
+"settings.preferences" = "Tercihler";
+"settings.launch_at_login" = "Girişte aç";
+"settings.quit" = "Aitracker'dan Çık";
+"menubar_style.title" = "Menü çubuğu";
+"menubar_style.bars" = "Hesaplar yan yana";
+"menubar_style.icon" = "Yalnızca simge";
+"menubar_style.bars_help" = "Her hesap için haftalık kullanımıyla dolan bir çubuk. 5 saatlik limit dolduysa hesap şu an kilitli olduğu için çubuk %100 (kırmızı) gösterir. %70'in altı yeşil, %90'a kadar turuncu, üstü kırmızı.";
+"accounts.blocked_until" = "Limite ulaşıldı · %@ saatinde açılır";
+"accounts.extra_left" = "%@ kaldı";
+"accounts.codex_missing" = "Bu Mac'te Codex'e giriş yapılmamış. Codex'i yükleyip “codex login” komutunu çalıştırın, sonra tekrar deneyin.";
+"accounts.codex_exists" = "ChatGPT (Codex) hesabınız zaten eklendi.";
+"accounts.kimi_missing" = "Bu Mac'te Kimi Code'a giriş yapılmamış. Kimi Code CLI'ı yükleyip “kimi login” komutunu çalıştırın, sonra tekrar deneyin.";
+"accounts.kimi_exists" = "Kimi Code hesabınız zaten eklendi.";
+"accounts.kimi_expired" = "Kimi girişinin süresi doldu. “kimi login” komutunu yeniden çalıştırın.";
+"accounts.deepseek_title" = "DeepSeek Ekle";
+"accounts.deepseek_help" = "DeepSeek kullandıkça öde modelindedir, bu yüzden Aitracker API ön ödemeli bakiyenizi gösterir. DeepSeek platformunda bir API anahtarı oluşturup buraya yapıştırın; anahtar Mac'inizin Anahtar Zinciri'nde saklanır ve yalnızca bakiyeyi okumak için kullanılır.";
+"accounts.deepseek_invalid" = "DeepSeek bu API anahtarını reddetti.";
+"accounts.balance_available" = "Bakiye var";
+"accounts.balance_empty" = "Bakiye bitti";
+"accounts.apikey_title" = "%@ Ekle";
+"accounts.apikey_invalid" = "Bu API anahtarı reddedildi.";
+"accounts.credits_help" = "%@ 3D üretimlerini ön ödemeli kredilerle ücretlendirir, bu yüzden Aitracker kredi bakiyenizi gösterir. %@ hesabınızda bir API anahtarı oluşturup buraya yapıştırın; anahtar Mac'inizin Anahtar Zinciri'nde saklanır ve yalnızca bakiyeyi okumak için kullanılır (ücretsiz, kredi harcamaz).";
+"accounts.credits_amount" = "%@ kredi";
+"accounts.credits_refill" = "aylık krediler %@ yenilenir";
+"accounts.credits_reserved" = "%@ süren görevler için ayrıldı";
+"settings.language" = "Dil";
+"settings.language_system" = "Sistemle aynı";
+"settings.language_restart" = "Yeni dili uygulamak için Aitracker'ı yeniden başlatın.";
+"settings.restart_now" = "Şimdi Yeniden Başlat";
+"settings.check_updates" = "Güncellemeleri Denetle…";
+"settings.auto_updates" = "Güncellemeleri otomatik denetle";

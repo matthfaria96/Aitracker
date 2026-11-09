@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    Brazilian Portuguese (Português do Brasil)
    Created by Hudson Arruda on 2026-03-18.
@@ -9,10 +9,10 @@
 /* ==================== */
 /* MARK: - App Info */
 /* ==================== */
-"app.name" = "Claude Usage Tracker";
+"app.name" = "Aitracker";
 "app.window.main" = "Uso do Claude";
 "app.window.settings" = "Configurações";
-"app.window.github_prompt" = "Apoie o Claude Usage Tracker";
+"app.window.github_prompt" = "Apoie o Aitracker";
 
 /* ==================== */
 /* MARK: - Common Actions */
@@ -88,7 +88,7 @@
 /* MARK: - General Settings */
 /* ==================== */
 "general.launch_at_login" = "Iniciar ao fazer login";
-"general.launch_at_login.description" = "Iniciar automaticamente o Claude Usage Tracker ao fazer login no seu Mac";
+"general.launch_at_login.description" = "Iniciar automaticamente o Aitracker ao fazer login no seu Mac";
 "general.refresh_interval" = "Intervalo de Atualização";
 "general.refresh_interval.description" = "Intervalos menores fornecem dados mais em tempo real, mas podem impactar a vida útil da bateria";
 "general.check_overage_limit" = "Verificar Limite de Uso Extra";
@@ -132,7 +132,7 @@
 /* ==================== */
 /* MARK: - Setup Wizard */
 /* ==================== */
-"setup.welcome.title" = "Bem-vindo ao Claude Usage Tracker";
+"setup.welcome.title" = "Bem-vindo ao Aitracker";
 "setup.welcome.subtitle" = "Configure seu acesso à API para começar a rastrear o uso";
 "setup.step.get_session_key" = "Obtenha Sua Chave de Sessão";
 "setup.step.get_session_key.description" = "Você precisará extrair sua chave de sessão do claude.ai";
@@ -264,7 +264,7 @@
 /* ==================== */
 /* MARK: - GitHub Star Prompt */
 /* ==================== */
-"github.enjoy_app" = "Gostando do Claude Usage Tracker?";
+"github.enjoy_app" = "Gostando do Aitracker?";
 "github.star_description" = "Se este aplicativo foi útil, considere dar uma estrela no GitHub! Isso ajuda outras pessoas a descobrir o projeto e motiva o desenvolvimento contínuo.";
 "github.star_button" = "Dar Estrela no GitHub";
 "github.maybe_later" = "Talvez Mais Tarde";
@@ -743,8 +743,8 @@
 "personal.success_key_saved" = "Chave de sessão salva com sucesso";
 "personal.remove_title" = "Remover Credenciais";
 "personal.remove_subtitle" = "Excluir permanentemente sua chave de sessão do Claude.ai deste perfil";
-"personal.signin_description" = "Faça login para extrair sua chave de sessão automaticamente.";
-"personal.signin_button" = "Entrar no Claude.ai";
+"personal.signin_description" = "Entre pelo seu próprio navegador — o Aitracker lê a sessão dele automaticamente.";
+"personal.signin_button" = "Entrar pelo navegador";
 "personal.signin_sheet_title" = "Entrar no Claude.ai";
 "personal.advanced_manual_key" = "Avançado: Chave de sessão manual";
 "about.run_setup_wizard" = "Executar Assistente de Configuração";
@@ -814,7 +814,7 @@
 "history.export.csv" = "Exportar como CSV";
 "history.chart.now" = "Agora";
 "support.title" = "Apoiar o Projeto";
-"support.subtitle" = "Claude Usage Tracker é gratuito e de código aberto";
+"support.subtitle" = "Aitracker é gratuito e de código aberto";
 "support.all_features_free" = "Todos os Recursos São Gratuitos";
 "support.all_features_desc" = "Cada recurso neste aplicativo é completamente gratuito. Sem níveis premium, sem paywalls, sem assinaturas.";
 "support.open_source" = "Código Aberto";
@@ -1090,6 +1090,83 @@
 "launcher.install_failed" = "Não foi possível instalar o atalho: %@";
 "support.popup_title" = "Oi, eu sou o Hamed 👋";
 "support.popup_later" = "Talvez depois";
-"support.popup_signature" = "o time de uma pessoa só por trás do Claude Usage";
+"support.popup_signature" = "o time de uma pessoa só por trás do Aitracker";
 "support.popup_body" = "Grátis, open source, feito por uma pessoa só — sem anúncios nem rastreamento. Se já salvou você de queimar um limite de sessão, um café o mantém vivo.";
 "support.popup_days" = "De olho nos seus limites há %d dias — sempre grátis";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "Navegador";
+"browser_auth.profile" = "Perfil";
+"browser_auth.default_suffix" = "%@ (padrão)";
+"browser_auth.open_login" = "Abrir login no %@";
+"browser_auth.open_login_hint" = "Já está logado? É só escolher a conta abaixo. Senão, abra a página de login, entre, e o Aitracker pega a sessão sozinho.";
+"browser_auth.waiting" = "Aguardando você entrar no %@… Atualiza sozinho — o navegador pode levar até 30 segundos para salvar a sessão.";
+"browser_auth.retry" = "Tentar novamente";
+"browser_auth.found_sessions" = "Contas logadas neste navegador";
+"browser_auth.no_sessions" = "Nenhuma sessão logada encontrada neste navegador ainda.";
+"browser_auth.scanning" = "Lendo a sessão do navegador…";
+"browser_auth.identifying" = "Identificando conta…";
+"browser_auth.unknown_account" = "Conta Claude";
+"browser_auth.used_by" = "Já usada no perfil “%@”";
+"browser_auth.expired" = "Sessão expirada ou deslogada";
+"browser_auth.use" = "Usar";
+"browser_auth.no_browser" = "Nenhum navegador compatível encontrado. O Aitracker lê a sessão do Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium ou Firefox.";
+"browser_auth.multi_account_hint" = "Para adicionar outra conta: no navegador, clique no cadeado ao lado do endereço do claude.ai → Cookies e dados do site → apague o claude.ai. Depois clique em “Abrir login” acima e entre com a outra conta. Não clique em “Sair” no claude.ai — isso desconectaria a conta que o Aitracker já guardou.";
+"browser_auth.error.keychain_denied" = "O macOS não deixou o Aitracker ler “%@ Safe Storage” do Keychain, necessário para descriptografar os cookies do navegador. Clique em Tentar novamente e escolha “Sempre Permitir”.";
+"browser_auth.error.keychain_missing" = "Não encontrei a chave de criptografia de cookies do %@ no Keychain. Abra o navegador pelo menos uma vez e tente de novo.";
+"browser_auth.error.db_unreadable" = "Não consegui ler o banco de cookies do navegador (%@).";
+"accounts.add" = "Adicionar conta";
+"accounts.add_description" = "Entra pelo seu navegador e configura tudo sozinho. Adicione quantas contas quiser — todas aparecem lado a lado na barra de menu.";
+"accounts.added" = "“%@” adicionada. Agora ela atualiza junto com as outras contas.";
+"accounts.reconnected" = "“%@” reconectada.";
+"general.refresh_every" = "Atualizar a cada";
+"general.refresh_minutes" = "%d min";
+"general.refresh_all_accounts" = "Vale para todas as contas. Intervalos maiores gastam menos bateria e rede.";
+"accounts.title" = "Contas";
+"accounts.default_name" = "Conta";
+"accounts.empty_title" = "Nenhuma conta ainda";
+"accounts.empty_description" = "Adicione suas contas de IA para ver quanto já usou dos limites e dos créditos.";
+"accounts.session" = "Limite de 5 horas";
+"accounts.weekly" = "Limite semanal";
+"accounts.resets" = "Reinicia %@";
+"accounts.updated" = "Atualizado %@";
+"accounts.loading" = "Carregando uso…";
+"accounts.needs_reconnect" = "Desconectada — use ••• → Reconectar";
+"accounts.extra_usage" = "Uso extra";
+"accounts.extra_available" = "%@ ainda disponível este mês";
+"accounts.credit_balance" = "Saldo de crédito";
+"accounts.row_summary" = "5h: %d%% · Semana: %d%%";
+"accounts.reconnect" = "Reconectar";
+"accounts.remove" = "Remover conta";
+"accounts.remove_confirm" = "Remover “%@” do Aitracker?";
+"settings.preferences" = "Preferências";
+"settings.launch_at_login" = "Abrir ao iniciar o Mac";
+"settings.quit" = "Sair do Aitracker";
+"menubar_style.title" = "Barra de menu";
+"menubar_style.bars" = "Contas lado a lado";
+"menubar_style.icon" = "Só o ícone";
+"menubar_style.bars_help" = "Uma barra por conta, preenchida com o uso semanal. Se o limite de 5h estourar, a barra fica em 100% (vermelha), porque a conta está travada naquele momento. Verde abaixo de 70%, laranja até 90%, vermelha acima.";
+"accounts.blocked_until" = "Limite atingido · volta às %@";
+"accounts.extra_left" = "%@ restantes";
+"accounts.codex_missing" = "O Codex não está logado neste Mac. Instale o Codex e rode “codex login”, depois tente de novo.";
+"accounts.codex_exists" = "Sua conta ChatGPT (Codex) já está adicionada.";
+"accounts.kimi_missing" = "O Kimi Code não está logado neste Mac. Instale o Kimi Code CLI e rode “kimi login”, depois tente de novo.";
+"accounts.kimi_exists" = "Sua conta do Kimi Code já está adicionada.";
+"accounts.kimi_expired" = "O login do Kimi expirou. Rode “kimi login” de novo.";
+"accounts.deepseek_title" = "Adicionar DeepSeek";
+"accounts.deepseek_help" = "O DeepSeek é pago por uso, então o Aitracker mostra o saldo pré-pago da sua API. Crie uma chave de API na plataforma do DeepSeek e cole aqui — ela fica no Keychain do seu Mac e só é usada para ler o saldo.";
+"accounts.deepseek_invalid" = "O DeepSeek recusou essa chave de API.";
+"accounts.balance_available" = "Saldo disponível";
+"accounts.balance_empty" = "Sem saldo";
+"accounts.apikey_title" = "Adicionar %@";
+"accounts.apikey_invalid" = "Essa chave de API foi recusada.";
+"accounts.credits_help" = "O %@ cobra as gerações 3D em créditos pré-pagos, então o Aitracker mostra o seu saldo de créditos. Crie uma chave de API na sua conta do %@ e cole aqui — ela fica no Keychain do seu Mac e só é usada para ler o saldo (grátis, não gasta crédito).";
+"accounts.credits_amount" = "%@ créditos";
+"accounts.credits_refill" = "créditos mensais renovam %@";
+"accounts.credits_reserved" = "%@ reservados por gerações em andamento";
+"settings.language" = "Idioma";
+"settings.language_system" = "Igual ao sistema";
+"settings.language_restart" = "Reinicie o Aitracker para aplicar o novo idioma.";
+"settings.restart_now" = "Reiniciar agora";
+"settings.check_updates" = "Procurar atualizações…";
+"settings.auto_updates" = "Procurar atualizações automaticamente";

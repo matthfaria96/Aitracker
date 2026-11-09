@@ -102,130 +102,108 @@ struct PopoverContentView: View {
         return viewingProfile?.provider ?? .anthropic
     }
 
+    @State private var expandedId: UUID?
+
+    private var accounts: [Profile] { profileManager.trackedAccounts }
+
+    private var lastUpdated: Date? {
+        accounts.compactMap { $0.claudeUsage?.lastUpdated }.max()
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
-            SmartHeader(
-                usage: displayUsage,
-                status: manager.status,
-                isRefreshing: isRefreshing,
-                onRefresh: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isRefreshing = true
-                    }
+            HStack(spacing: 6) {
+                Text("Aitracker")
+                    .font(.system(size: 13, weight: .semibold))
+                Spacer()
+                HeaderIconButton(icon: "arrow.clockwise", fontSize: 12, isRefreshing: isRefreshing) {
+                    isRefreshing = true
                     onRefresh()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            isRefreshing = false
-                        }
-                    }
-                },
-                onManageProfiles: onPreferences,
-                onPreferences: onPreferences,
-                clickedProfileId: manager.clickedProfileId
-            )
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { isRefreshing = false }
+                }
+                .help("common.refresh".localized)
+                HeaderIconButton(icon: "gearshape", fontSize: 12, action: onPreferences)
+                    .help("common.settings".localized)
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 14)
+            .padding(.bottom, 8)
 
-            PopoverDivider()
-
-            // Error / stale data banners
             if manager.hasCredentialError {
                 StatusBannerView(
                     icon: "exclamationmark.triangle.fill",
                     message: "popover.banner.credentials_expired".localized,
                     color: .orange
-                ) {
-                    onPreferences()
-                }
-            } else if manager.consecutiveRefreshFailures >= 3 {
-                StatusBannerView(
-                    icon: "arrow.clockwise.circle.fill",
-                    message: String(format: "popover.banner.refresh_failed".localized, manager.consecutiveRefreshFailures),
-                    color: .yellow
-                ) {
-                    onRefresh()
-                }
-            } else if let lastRefresh = manager.lastSuccessfulRefreshTime,
-                      Date().timeIntervalSince(lastRefresh) > 300 {
-                let minutesAgo = Int(Date().timeIntervalSince(lastRefresh) / 60)
-                StatusBannerView(
-                    icon: "clock.fill",
-                    message: String(format: "popover.banner.updated_ago".localized, minutesAgo),
-                    color: .orange
-                ) {
-                    onRefresh()
-                }
+                ) { onPreferences() }
+                .padding(.bottom, 4)
             }
 
-            // Viewing usage tag (shown in multi-profile mode)
-            if profileManager.displayMode == .multi,
-               let viewingProfile = manager.clickedProfileId.flatMap({ id in
-                   profileManager.profiles.first(where: { $0.id == id })
-               }) ?? profileManager.activeProfile {
-                HStack(spacing: 8) {
-                    // Profile initials avatar
-                    ZStack {
-                        Circle()
-                            .fill(Color.accentColor.opacity(0.15))
-                            .frame(width: 20, height: 20)
-
-                        Text(profileInitials(for: viewingProfile.name))
-                            .font(.system(size: 8, weight: .bold, design: .rounded))
-                            .foregroundColor(.accentColor)
-                    }
-
-                    Text(viewingProfile.name)
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
-
-                    if viewingProfile.provider != .anthropic {
-                        ProviderLogoView(provider: viewingProfile.provider, size: 10)
-                            .foregroundColor(.secondary)
-                    }
-
-                    Spacer()
-
-                    if viewingProfile.id == profileManager.activeProfile?.id {
-                        Text("Active")
-                            .font(.system(size: 8, weight: .semibold))
-                            .foregroundColor(.accentColor)
-                            .padding(.horizontal, 5)
-                            .padding(.vertical, 2)
-                            .background(
-                                Capsule()
-                                    .fill(Color.accentColor.opacity(0.12))
+            if accounts.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "gauge.with.dots.needle.33percent")
+                        .font(.system(size: 30, weight: .light))
+                        .foregroundStyle(.secondary)
+                    Text("accounts.empty_description".localized)
+                        .font(.system(size: 11.5))
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Button("accounts.add".localized, action: onPreferences)
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.regular)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 24)
+                .padding(.vertical, 20)
+            } else {
+                ScrollView {
+                    VStack(spacing: 2) {
+                        ForEach(accounts) { account in
+                            AccountRow(
+                                profile: account,
+                                color: AccountPalette.color(for: account, in: accounts),
+                                isExpanded: Binding(
+                                    get: { expandedId == account.id || accounts.count == 1 },
+                                    set: { expandedId = $0 ? account.id : nil }
+                                )
                             )
+                        }
                     }
+                    .padding(.horizontal, 6)
                 }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.primary.opacity(0.03))
-                )
-                .padding(.horizontal, 10)
-                .padding(.top, 6)
+                .scrollBounceBehavior(.basedOnSize)
+                .frame(maxHeight: 480)
+                .fixedSize(horizontal: false, vertical: true)
             }
 
-            // Usage
-            SmartUsageDashboard(usage: displayUsage, apiUsage: displayAPIUsage, provider: displayProvider)
+            Divider()
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
 
-            // Contextual Insights
-            if showInsights {
-                PopoverDivider()
-                ContextualInsights(usage: displayUsage)
-                    .transition(.opacity)
+            HStack {
+                if let lastUpdated {
+                    Text(String(format: "accounts.updated".localized, lastUpdated.formatted(.relative(presentation: .named))))
+                        .font(.system(size: 10.5))
+                        .foregroundStyle(.tertiary)
+                }
+                Spacer()
+                Button("settings.quit".localized) { NSApp.terminate(nil) }
+                    .buttonStyle(.plain)
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
             }
-
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
         }
-        .padding(.bottom, 8)
-        .frame(width: 280)
+        .padding(.bottom, 12)
+        .frame(width: 320)
         .background(VisualEffectBackground())
         .opacity(appeared ? 1 : 0)
-        .scaleEffect(appeared ? 1 : 0.96, anchor: .top)
+        .scaleEffect(appeared ? 1 : 0.97, anchor: .top)
         .onAppear {
             appeared = false
-            withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.85)) {
                 appeared = true
             }
         }

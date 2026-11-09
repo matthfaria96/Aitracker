@@ -247,6 +247,10 @@ struct Profile: Codable, Identifiable, Equatable {
             return hasClaudeAI || hasAPIConsole || hasValidCLIOAuth
         case .codex:
             return codexCredentialsJSON != nil || CodexAuthService.shared.authFileExists()
+        case .kimi:
+            return KimiAuth.isSignedIn()
+        case .deepseek, .meshy, .tripo:
+            return apiSessionKey != nil
         }
     }
 
@@ -262,6 +266,10 @@ struct Profile: Codable, Identifiable, Equatable {
             return hasClaudeAI || hasAPIConsole || cliCredentialsJSON != nil || customKeychainServiceName != nil
         case .codex:
             return codexCredentialsJSON != nil || CodexAuthService.shared.authFileExists()
+        case .kimi:
+            return KimiAuth.isSignedIn()
+        case .deepseek, .meshy, .tripo:
+            return apiSessionKey != nil
         }
     }
 }

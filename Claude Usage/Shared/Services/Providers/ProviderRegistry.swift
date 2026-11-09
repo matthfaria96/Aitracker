@@ -56,6 +56,82 @@ enum ProviderRegistry {
             primaryWindowLabelKey: "usage.window.session",
             secondaryWindowLabelKey: "usage.window.weekly"
         ),
+        .meshy: ProviderDescriptor(
+            id: .meshy,
+            displayName: "Meshy",
+            logoAssetName: "ProviderLogoMeshy",
+            logoSystemSymbolFallback: "cube.fill",
+            statusPageURL: nil,
+            capabilities: ProviderCapabilities(
+                tokenCounts: false,
+                perModelBreakdown: false,
+                consoleBilling: false,
+                cliAccountSync: false,
+                autoStartSession: false,
+                overageChecks: false,
+                credits: true
+            ),
+            credentialSections: [],
+            primaryWindowLabelKey: "usage.window.session",
+            secondaryWindowLabelKey: "usage.window.weekly"
+        ),
+        .tripo: ProviderDescriptor(
+            id: .tripo,
+            displayName: "Tripo",
+            logoAssetName: "ProviderLogoTripo",
+            logoSystemSymbolFallback: "cube.transparent.fill",
+            statusPageURL: nil,
+            capabilities: ProviderCapabilities(
+                tokenCounts: false,
+                perModelBreakdown: false,
+                consoleBilling: false,
+                cliAccountSync: false,
+                autoStartSession: false,
+                overageChecks: false,
+                credits: true
+            ),
+            credentialSections: [],
+            primaryWindowLabelKey: "usage.window.session",
+            secondaryWindowLabelKey: "usage.window.weekly"
+        ),
+        .deepseek: ProviderDescriptor(
+            id: .deepseek,
+            displayName: "DeepSeek",
+            logoAssetName: "ProviderLogoDeepSeek",
+            logoSystemSymbolFallback: "fish.fill",
+            statusPageURL: nil,
+            capabilities: ProviderCapabilities(
+                tokenCounts: false,
+                perModelBreakdown: false,
+                consoleBilling: false,
+                cliAccountSync: false,
+                autoStartSession: false,
+                overageChecks: false,
+                credits: true
+            ),
+            credentialSections: [],
+            primaryWindowLabelKey: "usage.window.session",
+            secondaryWindowLabelKey: "usage.window.weekly"
+        ),
+        .kimi: ProviderDescriptor(
+            id: .kimi,
+            displayName: "Kimi",
+            logoAssetName: "ProviderLogoKimi",
+            logoSystemSymbolFallback: "moon.fill",
+            statusPageURL: nil,
+            capabilities: ProviderCapabilities(
+                tokenCounts: false,
+                perModelBreakdown: false,
+                consoleBilling: false,
+                cliAccountSync: false,
+                autoStartSession: false,
+                overageChecks: false,
+                credits: false
+            ),
+            credentialSections: [],
+            primaryWindowLabelKey: "usage.window.session",
+            secondaryWindowLabelKey: "usage.window.weekly"
+        ),
     ]
 
     static func descriptor(for provider: Provider) -> ProviderDescriptor {
@@ -73,6 +149,14 @@ enum ProviderRegistry {
             return AnthropicUsageProvider.shared
         case .codex:
             return CodexUsageProvider.shared
+        case .kimi:
+            return KimiUsageProvider.shared
+        case .deepseek:
+            return DeepSeekUsageProvider.shared
+        case .meshy:
+            return MeshyUsageProvider.shared
+        case .tripo:
+            return TripoUsageProvider.shared
         }
     }
 }

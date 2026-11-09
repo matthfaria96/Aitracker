@@ -300,7 +300,7 @@ struct APIEnterKeyStep: View {
                 .disabled(wizardState.validationState == .validating)
             }
             .sheet(isPresented: $wizardState.showingAuthSheet) {
-                ConsoleAuthSheet(
+                BrowserAuthSheet(
                     title: "Sign in to Anthropic Console",
                     loginURL: URL(string: "https://console.anthropic.com/login")!,
                     cookieDomain: "platform.claude.com",

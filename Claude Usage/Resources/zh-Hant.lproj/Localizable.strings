@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    繁體中文 (臺灣)
    Created by Claude Code on 2026-01-27.
@@ -9,10 +9,10 @@
 /* ==================== */
 /* MARK: - App Info */
 /* ==================== */
-"app.name" = "Claude Usage Tracker";
-"app.window.main" = "Claude Usage";
+"app.name" = "Aitracker";
+"app.window.main" = "Aitracker";
 "app.window.settings" = "設定";
-"app.window.github_prompt" = "支援 Claude Usage Tracker";
+"app.window.github_prompt" = "支援 Aitracker";
 
 /* ==================== */
 /* MARK: - Common Actions */
@@ -97,7 +97,7 @@
 /* MARK: - General Settings */
 /* ==================== */
 "general.launch_at_login" = "登入時啟動";
-"general.launch_at_login.description" = "登入 Mac 時自動啟動 Claude Usage Tracker";
+"general.launch_at_login.description" = "登入 Mac 時自動啟動 Aitracker";
 "general.refresh_interval" = "重新整理間隔";
 "general.refresh_interval.description" = "較短的間隔提供更即時的資料，但可能影響電池壽命";
 "general.check_overage_limit" = "檢查額外使用限制";
@@ -141,7 +141,7 @@
 /* ==================== */
 /* MARK: - Setup Wizard */
 /* ==================== */
-"setup.welcome.title" = "歡迎使用 Claude Usage Tracker";
+"setup.welcome.title" = "歡迎使用 Aitracker";
 "setup.welcome.subtitle" = "設定您的 API 存取以開始追蹤使用情況";
 "setup.step.get_session_key" = "取得您的 Session 金鑰";
 "setup.step.get_session_key.description" = "您需要從 claude.ai 取得您的 Session 金鑰";
@@ -288,7 +288,7 @@
 /* ==================== */
 /* MARK: - GitHub Star Prompt */
 /* ==================== */
-"github.enjoy_app" = "喜歡 Claude Usage Tracker 嗎？";
+"github.enjoy_app" = "喜歡 Aitracker 嗎？";
 "github.star_description" = "如果這個軟體對您有幫助，請在 GitHub 上給它一顆星！這有助於其他人發現專案並激勵持續開發。";
 "github.star_button" = "在 GitHub 上給星";
 "github.maybe_later" = "稍後再說";
@@ -1076,6 +1076,83 @@
 "launcher.install_failed" = "無法安裝啟動器：%@";
 "support.popup_title" = "你好，我是 Hamed 👋";
 "support.popup_later" = "下次再說";
-"support.popup_signature" = "Claude Usage 背後的一人團隊";
+"support.popup_signature" = "Aitracker 背後的一人團隊";
 "support.popup_body" = "免費、開源、一人開發——沒有廣告，沒有追蹤。如果它曾幫你避免燒掉工作階段額度，一杯咖啡就能讓它繼續前進。";
 "support.popup_days" = "已守護你的額度 %d 天 — 永遠免費";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "瀏覽器";
+"browser_auth.profile" = "設定檔";
+"browser_auth.default_suffix" = "%@（預設）";
+"browser_auth.open_login" = "在 %@ 開啟登入";
+"browser_auth.open_login_hint" = "已經登入了嗎？直接在下方選擇帳號即可。否則請開啟登入頁面並登入，Aitracker 會自動取得工作階段。";
+"browser_auth.waiting" = "正在等待你在 %@ 登入… 會自動更新，瀏覽器儲存工作階段最多可能需要 30 秒。";
+"browser_auth.retry" = "重試";
+"browser_auth.found_sessions" = "此瀏覽器中已登入的帳號";
+"browser_auth.no_sessions" = "此瀏覽器中還沒有已登入的工作階段。";
+"browser_auth.scanning" = "正在讀取瀏覽器工作階段…";
+"browser_auth.identifying" = "正在辨識帳號…";
+"browser_auth.unknown_account" = "Claude 帳號";
+"browser_auth.used_by" = "已被設定檔「%@」使用";
+"browser_auth.expired" = "工作階段已過期或已登出";
+"browser_auth.use" = "使用";
+"browser_auth.no_browser" = "找不到支援的瀏覽器。Aitracker 可從 Vivaldi、Chrome、Brave、Edge、Arc、Opera、Chromium 或 Firefox 讀取工作階段。";
+"browser_auth.multi_account_hint" = "新增其他帳號：在瀏覽器中按一下 claude.ai 網址旁的鎖頭 → Cookie 和網站資料 → 刪除 claude.ai。接著按一下上方的「開啟登入」，用另一個帳號登入。不要在 claude.ai 按「登出」，否則會中斷 Aitracker 已儲存的帳號。";
+"browser_auth.error.keychain_denied" = "macOS 不允許 Aitracker 讀取鑰匙圈中的「%@ Safe Storage」，而解密瀏覽器 Cookie 需要它。請按一下「重試」並選擇「永遠允許」。";
+"browser_auth.error.keychain_missing" = "在鑰匙圈中找不到 %@ 的 Cookie 加密金鑰。請至少開啟一次瀏覽器後再試一次。";
+"browser_auth.error.db_unreadable" = "無法讀取瀏覽器的 Cookie 資料庫（%@）。";
+"accounts.add" = "新增帳號";
+"accounts.add_description" = "透過瀏覽器登入並自動完成設定。可新增任意數量的帳號，它們會並排顯示在選單列中。";
+"accounts.added" = "已新增「%@」，現在會和其他帳號一起重新整理。";
+"accounts.reconnected" = "已重新連線「%@」。";
+"general.refresh_every" = "重新整理間隔";
+"general.refresh_minutes" = "%d 分鐘";
+"general.refresh_all_accounts" = "適用於所有帳號。間隔越長，耗電與網路用量越少。";
+"accounts.title" = "帳號";
+"accounts.default_name" = "帳號";
+"accounts.empty_title" = "還沒有帳號";
+"accounts.empty_description" = "新增你的 AI 帳號，查看額度與點數的使用情況。";
+"accounts.session" = "5 小時額度";
+"accounts.weekly" = "每週額度";
+"accounts.resets" = "%@重設";
+"accounts.updated" = "%@更新";
+"accounts.loading" = "正在載入用量…";
+"accounts.needs_reconnect" = "已中斷連線 — 使用 ••• → 重新連線";
+"accounts.extra_usage" = "額外用量";
+"accounts.extra_available" = "本月還剩 %@";
+"accounts.credit_balance" = "點數餘額";
+"accounts.row_summary" = "5 小時：%d%% · 本週：%d%%";
+"accounts.reconnect" = "重新連線";
+"accounts.remove" = "移除帳號";
+"accounts.remove_confirm" = "要從 Aitracker 移除「%@」嗎？";
+"settings.preferences" = "偏好設定";
+"settings.launch_at_login" = "登入時開啟";
+"settings.quit" = "結束 Aitracker";
+"menubar_style.title" = "選單列";
+"menubar_style.bars" = "帳號並排顯示";
+"menubar_style.icon" = "僅圖示";
+"menubar_style.bars_help" = "每個帳號一條，依每週用量填滿。若 5 小時額度已用完，帳號目前受到限制，條狀會顯示 100%（紅色）。低於 70% 為綠色，90% 以內為橘色，以上為紅色。";
+"accounts.blocked_until" = "已達上限 · %@ 恢復";
+"accounts.extra_left" = "剩餘 %@";
+"accounts.codex_missing" = "此 Mac 上尚未登入 Codex。請安裝 Codex 並執行「codex login」，然後再試一次。";
+"accounts.codex_exists" = "你的 ChatGPT（Codex）帳號已新增。";
+"accounts.kimi_missing" = "此 Mac 上尚未登入 Kimi Code。請安裝 Kimi Code CLI 並執行「kimi login」，然後再試一次。";
+"accounts.kimi_exists" = "你的 Kimi Code 帳號已新增。";
+"accounts.kimi_expired" = "Kimi 登入已過期，請再次執行「kimi login」。";
+"accounts.deepseek_title" = "新增 DeepSeek";
+"accounts.deepseek_help" = "DeepSeek 依用量計費，因此 Aitracker 會顯示你的 API 預付餘額。請在 DeepSeek 平台建立 API 金鑰並貼到這裡。金鑰儲存在 Mac 的鑰匙圈中，只用來讀取餘額。";
+"accounts.deepseek_invalid" = "DeepSeek 拒絕了此 API 金鑰。";
+"accounts.balance_available" = "有餘額";
+"accounts.balance_empty" = "餘額不足";
+"accounts.apikey_title" = "新增 %@";
+"accounts.apikey_invalid" = "此 API 金鑰遭拒。";
+"accounts.credits_help" = "%@ 以預付點數計費 3D 生成，因此 Aitracker 會顯示你的點數餘額。請在你的 %@ 帳號中建立 API 金鑰並貼到這裡。金鑰儲存在 Mac 的鑰匙圈中，只用來讀取餘額（免費，不消耗點數）。";
+"accounts.credits_amount" = "%@ 點";
+"accounts.credits_refill" = "每月點數%@更新";
+"accounts.credits_reserved" = "進行中的工作保留了 %@";
+"settings.language" = "語言";
+"settings.language_system" = "與系統相同";
+"settings.language_restart" = "重新啟動 Aitracker 以套用新語言。";
+"settings.restart_now" = "立即重新啟動";
+"settings.check_updates" = "檢查更新項目…";
+"settings.auto_updates" = "自動檢查更新項目";

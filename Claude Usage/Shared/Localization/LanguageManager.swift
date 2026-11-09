@@ -34,9 +34,29 @@ class LanguageManager: ObservableObject {
             currentLanguage = SupportedLanguage.allCases.first { $0.code == fullCode }
                 ?? SupportedLanguage.allCases.first { $0.code == langCode }
                 ?? .english
+            // Nothing chosen: follow macOS, never pin the detected language.
+            return
         }
 
         applyLanguage()
+    }
+
+    /// The language the user picked, or nil to follow the system.
+    static var selectedCode: String? {
+        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.appLanguage)
+    }
+
+    /// Picks a language (nil = system default). Applies on the next launch,
+    /// because the bundle's localization is resolved at process start.
+    static func select(code: String?) {
+        let defaults = UserDefaults.standard
+        if let code {
+            defaults.set(code, forKey: Constants.UserDefaultsKeys.appLanguage)
+            defaults.set([code], forKey: "AppleLanguages")
+        } else {
+            defaults.removeObject(forKey: Constants.UserDefaultsKeys.appLanguage)
+            defaults.removeObject(forKey: "AppleLanguages")
+        }
     }
 
     /// Apply the selected language to the app
@@ -59,7 +79,7 @@ class LanguageManager: ObservableObject {
         case brazilianPortuguese = "pt-BR"
         case japanese = "ja"
         case korean = "ko"
-        case zhCn = "zh-cn"
+        case zhCn = "zh-Hans"
         case zhHant = "zh-Hant"
         case ukrainian = "uk"
         case turkish = "tr"

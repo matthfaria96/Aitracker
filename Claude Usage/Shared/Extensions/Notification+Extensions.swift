@@ -19,6 +19,7 @@ extension Notification.Name {
 
     /// Posted when the display mode changes (single/multi profile)
     static let displayModeChanged = Notification.Name("displayModeChanged")
+    static let refreshIntervalChanged = Notification.Name("refreshIntervalChanged")
 
     /// Posted when multi-profile visual config changes (icon style, show week, labels, etc.)
     /// Unlike displayModeChanged, this does NOT recreate status items — only updates their icons.

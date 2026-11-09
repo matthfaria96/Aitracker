@@ -274,7 +274,7 @@ struct EnterKeyStep: View {
                 .disabled(wizardState.validationState == .validating)
             }
             .sheet(isPresented: $wizardState.showingAuthSheet) {
-                ConsoleAuthSheet(
+                BrowserAuthSheet(
                     title: "personal.signin_sheet_title".localized,
                     loginURL: URL(string: "https://claude.ai/login")!,
                     cookieDomain: "claude.ai",

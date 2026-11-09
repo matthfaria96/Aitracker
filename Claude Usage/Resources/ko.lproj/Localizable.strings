@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    Korean (한국어)
    Created by Claude Code on 2026-01-11.
@@ -12,7 +12,7 @@
 "app.name" = "Claude 사용량 추적기";
 "app.window.main" = "Claude 사용량";
 "app.window.settings" = "설정";
-"app.window.github_prompt" = "Claude Usage Tracker 지원하기";
+"app.window.github_prompt" = "Aitracker 지원하기";
 
 /* ==================== */
 /* MARK: - Common Actions */
@@ -1099,6 +1099,83 @@
 "launcher.install_failed" = "런처를 설치할 수 없습니다: %@";
 "support.popup_title" = "안녕하세요, Hamed입니다 👋";
 "support.popup_later" = "나중에";
-"support.popup_signature" = "Claude Usage를 혼자 만드는 1인 팀";
+"support.popup_signature" = "Aitracker를 혼자 만드는 1인 팀";
 "support.popup_body" = "무료, 오픈소스, 1인 개발 — 광고도 추적도 없습니다. 세션 한도를 태우는 걸 막아준 적이 있다면, 커피 한 잔이 개발을 이어가게 합니다.";
 "support.popup_days" = "%d일째 당신의 한도를 지키는 중 — 언제나 무료";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "브라우저";
+"browser_auth.profile" = "프로필";
+"browser_auth.default_suffix" = "%@ (기본)";
+"browser_auth.open_login" = "%@에서 로그인 열기";
+"browser_auth.open_login_hint" = "이미 로그인했나요? 아래에서 계정을 고르기만 하면 됩니다. 아니면 로그인 페이지를 열고 로그인하세요. Aitracker가 세션을 자동으로 가져옵니다.";
+"browser_auth.waiting" = "%@에서 로그인하기를 기다리는 중… 자동으로 업데이트됩니다. 브라우저가 세션을 저장하는 데 최대 30초가 걸릴 수 있습니다.";
+"browser_auth.retry" = "다시 시도";
+"browser_auth.found_sessions" = "이 브라우저에 로그인된 계정";
+"browser_auth.no_sessions" = "이 브라우저에서 아직 로그인된 세션을 찾지 못했습니다.";
+"browser_auth.scanning" = "브라우저 세션 읽는 중…";
+"browser_auth.identifying" = "계정 확인 중…";
+"browser_auth.unknown_account" = "Claude 계정";
+"browser_auth.used_by" = "이미 “%@” 프로필에서 사용 중";
+"browser_auth.expired" = "세션 만료 또는 로그아웃됨";
+"browser_auth.use" = "사용";
+"browser_auth.no_browser" = "지원되는 브라우저를 찾지 못했습니다. Aitracker는 Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium, Firefox에서 세션을 읽습니다.";
+"browser_auth.multi_account_hint" = "다른 계정을 추가하려면: 브라우저에서 claude.ai 주소 옆의 자물쇠 → 쿠키 및 사이트 데이터 → claude.ai 삭제. 그런 다음 위의 “로그인 열기”를 누르고 다른 계정으로 로그인하세요. claude.ai에서 “로그아웃”은 누르지 마세요. Aitracker에 저장된 계정의 연결이 끊어집니다.";
+"browser_auth.error.keychain_denied" = "macOS가 Aitracker의 키체인 “%@ Safe Storage” 읽기를 허용하지 않았습니다. 브라우저 쿠키를 해독하려면 필요합니다. 다시 시도를 누르고 “항상 허용”을 선택하세요.";
+"browser_auth.error.keychain_missing" = "키체인에서 %@의 쿠키 암호화 키를 찾지 못했습니다. 브라우저를 한 번 이상 연 후 다시 시도하세요.";
+"browser_auth.error.db_unreadable" = "브라우저 쿠키 데이터베이스를 읽지 못했습니다 (%@).";
+"accounts.add" = "계정 추가";
+"accounts.add_description" = "브라우저로 로그인하고 모든 설정을 자동으로 마칩니다. 원하는 만큼 계정을 추가하세요. 메뉴 막대에 나란히 표시됩니다.";
+"accounts.added" = "“%@” 추가됨. 이제 다른 계정과 함께 새로 고쳐집니다.";
+"accounts.reconnected" = "“%@” 다시 연결됨.";
+"general.refresh_every" = "새로 고침 간격";
+"general.refresh_minutes" = "%d분";
+"general.refresh_all_accounts" = "모든 계정에 적용됩니다. 간격이 길수록 배터리와 네트워크를 덜 사용합니다.";
+"accounts.title" = "계정";
+"accounts.default_name" = "계정";
+"accounts.empty_title" = "아직 계정이 없습니다";
+"accounts.empty_description" = "AI 계정을 추가하면 한도와 크레딧을 얼마나 썼는지 볼 수 있습니다.";
+"accounts.session" = "5시간 한도";
+"accounts.weekly" = "주간 한도";
+"accounts.resets" = "%@ 초기화";
+"accounts.updated" = "%@ 업데이트됨";
+"accounts.loading" = "사용량 불러오는 중…";
+"accounts.needs_reconnect" = "연결 끊김 — ••• → 다시 연결";
+"accounts.extra_usage" = "추가 사용량";
+"accounts.extra_available" = "이번 달 %@ 남음";
+"accounts.credit_balance" = "크레딧 잔액";
+"accounts.row_summary" = "5시간: %d%% · 주간: %d%%";
+"accounts.reconnect" = "다시 연결";
+"accounts.remove" = "계정 삭제";
+"accounts.remove_confirm" = "Aitracker에서 “%@”을(를) 삭제할까요?";
+"settings.preferences" = "환경설정";
+"settings.launch_at_login" = "로그인 시 열기";
+"settings.quit" = "Aitracker 종료";
+"menubar_style.title" = "메뉴 막대";
+"menubar_style.bars" = "계정 나란히 보기";
+"menubar_style.icon" = "아이콘만";
+"menubar_style.bars_help" = "계정마다 막대 하나가 주간 사용량만큼 채워집니다. 5시간 한도를 다 쓰면 지금 계정이 막혀 있으므로 막대가 100%(빨간색)로 표시됩니다. 70% 미만은 초록, 90%까지 주황, 그 이상은 빨강입니다.";
+"accounts.blocked_until" = "한도 도달 · %@에 재개";
+"accounts.extra_left" = "%@ 남음";
+"accounts.codex_missing" = "이 Mac에서 Codex에 로그인하지 않았습니다. Codex를 설치하고 “codex login”을 실행한 다음 다시 시도하세요.";
+"accounts.codex_exists" = "ChatGPT(Codex) 계정이 이미 추가되어 있습니다.";
+"accounts.kimi_missing" = "이 Mac에서 Kimi Code에 로그인하지 않았습니다. Kimi Code CLI를 설치하고 “kimi login”을 실행한 다음 다시 시도하세요.";
+"accounts.kimi_exists" = "Kimi Code 계정이 이미 추가되어 있습니다.";
+"accounts.kimi_expired" = "Kimi 로그인이 만료되었습니다. “kimi login”을 다시 실행하세요.";
+"accounts.deepseek_title" = "DeepSeek 추가";
+"accounts.deepseek_help" = "DeepSeek는 사용량 기반 요금이므로 Aitracker는 API 선불 잔액을 보여 줍니다. DeepSeek 플랫폼에서 API 키를 만들어 여기에 붙여 넣으세요. 키는 Mac 키체인에 저장되며 잔액 확인에만 사용됩니다.";
+"accounts.deepseek_invalid" = "DeepSeek가 이 API 키를 거부했습니다.";
+"accounts.balance_available" = "잔액 있음";
+"accounts.balance_empty" = "잔액 없음";
+"accounts.apikey_title" = "%@ 추가";
+"accounts.apikey_invalid" = "이 API 키가 거부되었습니다.";
+"accounts.credits_help" = "%@는 3D 생성을 선불 크레딧으로 청구하므로 Aitracker는 크레딧 잔액을 보여 줍니다. %@ 계정에서 API 키를 만들어 여기에 붙여 넣으세요. 키는 Mac 키체인에 저장되며 잔액 확인에만 사용됩니다(무료, 크레딧 소모 없음).";
+"accounts.credits_amount" = "%@ 크레딧";
+"accounts.credits_refill" = "월간 크레딧 갱신 %@";
+"accounts.credits_reserved" = "진행 중인 작업에 %@ 예약됨";
+"settings.language" = "언어";
+"settings.language_system" = "시스템 설정과 동일";
+"settings.language_restart" = "새 언어를 적용하려면 Aitracker를 다시 시작하세요.";
+"settings.restart_now" = "지금 다시 시작";
+"settings.check_updates" = "업데이트 확인…";
+"settings.auto_updates" = "자동으로 업데이트 확인";

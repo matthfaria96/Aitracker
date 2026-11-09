@@ -13,6 +13,9 @@ struct ManageProfilesView: View {
     @State private var newProfileName = ""
     @State private var newProfileProvider: Provider = .anthropic
     @State private var errorMessage: String?
+    @State private var showingAddAccount = false
+    @State private var isImportingAccount = false
+    @State private var addAccountMessage: String?
 
     var body: some View {
         ScrollView {
@@ -35,6 +38,29 @@ struct ManageProfilesView: View {
                             }
                         }
                     }
+                }
+
+                // Add an account straight from the browser (creates + names the profile)
+                VStack(alignment: .leading, spacing: DesignTokens.Spacing.small) {
+                    Button(action: { showingAddAccount = true }) {
+                        HStack(spacing: 6) {
+                            if isImportingAccount {
+                                ProgressView().controlSize(.small)
+                            } else {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                            }
+                            Text("accounts.add".localized)
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .disabled(isImportingAccount)
+
+                    Text(addAccountMessage ?? "accounts.add_description".localized)
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 // Create New Profile Button
@@ -322,6 +348,18 @@ struct ManageProfilesView: View {
             }
             .padding()
         }
+        .sheet(isPresented: $showingAddAccount) {
+            BrowserAuthSheet(
+                title: "accounts.add".localized,
+                loginURL: URL(string: "https://claude.ai/login")!,
+                cookieDomain: "claude.ai",
+                onSuccess: { result in
+                    showingAddAccount = false
+                    importAccount(result)
+                },
+                onCancel: { showingAddAccount = false }
+            )
+        }
         .sheet(isPresented: $showingCreateProfile) {
             CreateProfileSheet(
                 profileName: $newProfileName,
@@ -335,6 +373,28 @@ struct ManageProfilesView: View {
                     newProfileProvider = .anthropic
                 }
             )
+        }
+    }
+
+    private func importAccount(_ result: BrowserAuthResult) {
+        isImportingAccount = true
+        addAccountMessage = nil
+        Task {
+            do {
+                let outcome = try await BrowserAccountImporter.importAccount(
+                    sessionKey: result.sessionKey,
+                    expiry: result.expiryDate
+                )
+                switch outcome {
+                case .added(let profile):
+                    addAccountMessage = String(format: "accounts.added".localized, profile.name)
+                case .reconnected(let profile):
+                    addAccountMessage = String(format: "accounts.reconnected".localized, profile.name)
+                }
+            } catch {
+                addAccountMessage = AppError.wrap(error).message
+            }
+            isImportingAccount = false
         }
     }
 

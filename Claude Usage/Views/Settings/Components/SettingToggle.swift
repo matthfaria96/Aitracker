@@ -123,7 +123,7 @@ private struct BadgeView: View {
 #Preview("Toggle with Description") {
     SettingToggle(
         title: "Start at login",
-        description: "Automatically launch Claude Usage when you log in to your Mac",
+        description: "Automatically launch Aitracker when you log in to your Mac",
         isOn: .constant(false)
     )
     .padding()

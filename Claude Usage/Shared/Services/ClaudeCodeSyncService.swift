@@ -416,25 +416,35 @@ class ClaudeCodeSyncService {
 
         var email: String?
         var orgName: String?
-        if let orgUuid = orgUuid {
-            for profile in knownProfiles {
+
+        // The path-derived account map is exact (keyed by the keychain service
+        // itself), so it wins over any organization-based guess.
+        if let mapped = accountMap[serviceName] {
+            email = mapped.email
+            orgName = mapped.organizationName
+        }
+
+        // Organization matching can only identify an account when exactly one
+        // known profile belongs to that org — two seats of the same company
+        // share the organizationUuid, and picking the first one would label
+        // both keychain entries with the same e-mail.
+        if email == nil, let orgUuid = orgUuid {
+            let matches: [[String: Any]] = knownProfiles.compactMap { profile in
                 guard let json = profile.oauthAccountJSON,
                       let d = json.data(using: .utf8),
                       let r = try? JSONSerialization.jsonObject(with: d) as? [String: Any],
                       (r["organizationUuid"] as? String) == orgUuid else {
-                    continue
+                    return nil
                 }
-                email = r["emailAddress"] as? String
-                orgName = r["organizationName"] as? String
-                break
+                return r
             }
-        }
-
-        // Fall back to the path-derived account map (covers entries whose keychain
-        // payload doesn't carry an organizationUuid — newer Claude Code schemas).
-        if email == nil, let mapped = accountMap[serviceName] {
-            email = mapped.email
-            orgName = mapped.organizationName
+            let distinctEmails = Set(matches.compactMap { $0["emailAddress"] as? String })
+            if distinctEmails.count == 1, let match = matches.first {
+                email = match["emailAddress"] as? String
+                orgName = match["organizationName"] as? String
+            } else if let match = matches.first {
+                orgName = match["organizationName"] as? String
+            }
         }
 
         return KeychainEntryDescription(

@@ -1,6 +1,6 @@
 /*
    Localizable.strings
-   Claude Usage Tracker
+   Aitracker
 
    Ukrainian Localization
    Created by Claude Code on 2026-03-13.
@@ -9,10 +9,10 @@
 /* ==================== */
 /* MARK: - App Info */
 /* ==================== */
-"app.name" = "Claude Usage Tracker";
+"app.name" = "Aitracker";
 "app.window.main" = "Використання Claude";
 "app.window.settings" = "Налаштування";
-"app.window.github_prompt" = "Підтримати Claude Usage Tracker";
+"app.window.github_prompt" = "Підтримати Aitracker";
 
 /* ==================== */
 /* MARK: - Common Actions */
@@ -96,7 +96,7 @@
 /* MARK: - General Settings */
 /* ==================== */
 "general.launch_at_login" = "Запускати при вході";
-"general.launch_at_login.description" = "Автоматично запускати Claude Usage Tracker при вході в систему Mac";
+"general.launch_at_login.description" = "Автоматично запускати Aitracker при вході в систему Mac";
 "general.refresh_interval" = "Інтервал оновлення";
 "general.refresh_interval.description" = "Коротші інтервали дають більш актуальні дані, але можуть впливати на час роботи від батареї";
 "general.check_overage_limit" = "Перевірити ліміт перевищення";
@@ -140,7 +140,7 @@
 /* ==================== */
 /* MARK: - Setup Wizard */
 /* ==================== */
-"setup.welcome.title" = "Ласкаво просимо до Claude Usage Tracker";
+"setup.welcome.title" = "Ласкаво просимо до Aitracker";
 "setup.welcome.subtitle" = "Налаштуйте доступ до API для початку відстеження";
 "setup.step.get_session_key" = "Отримайте ключ сесії";
 "setup.step.get_session_key.description" = "Вам потрібно витягти ключ сесії з claude.ai";
@@ -287,7 +287,7 @@
 /* ==================== */
 /* MARK: - GitHub Star Prompt */
 /* ==================== */
-"github.enjoy_app" = "Подобається Claude Usage Tracker?";
+"github.enjoy_app" = "Подобається Aitracker?";
 "github.star_description" = "Якщо ця програма вам допомогла, будь ласка, додайте зірку на GitHub! Це допомагає іншим знайти проект та мотивує продовжувати розробку.";
 "github.star_button" = "Додати зірку на GitHub";
 "github.maybe_later" = "Можливо пізніше";
@@ -968,7 +968,7 @@
 /* MARK: - Project Support */
 /* ==================== */
 "support.title" = "Підтримати проект";
-"support.subtitle" = "Claude Usage Tracker — безкоштовний та відкритий код";
+"support.subtitle" = "Aitracker — безкоштовний та відкритий код";
 "support.message" = "Якщо ця програма вам корисна, розгляньте можливість підтримати її розробку";
 "support.buy_coffee" = "Пригостити кавою";
 "support.star_github" = "Додати зірку на GitHub";
@@ -1085,6 +1085,83 @@
 "launcher.install_failed" = "Не вдалося встановити запускач: %@";
 "support.popup_title" = "Привіт, я Hamed 👋";
 "support.popup_later" = "Можливо, пізніше";
-"support.popup_signature" = "команда з однієї людини за Claude Usage";
+"support.popup_signature" = "команда з однієї людини за Aitracker";
 "support.popup_body" = "Безплатний, з відкритим кодом, зроблений однією людиною — без реклами й стеження. Якщо він урятував вас від спаленого ліміту сесії, кава тримає його живим.";
 "support.popup_days" = "Пильнує ваші ліміти вже %d днів — завжди безплатно";
+
+/* Browser sign-in (Aitracker) */
+"browser_auth.browser" = "Браузер";
+"browser_auth.profile" = "Профіль";
+"browser_auth.default_suffix" = "%@ (типовий)";
+"browser_auth.open_login" = "Відкрити вхід у %@";
+"browser_auth.open_login_hint" = "Уже ввійшли? Просто виберіть обліковий запис нижче. Інакше відкрийте сторінку входу, увійдіть, і Aitracker автоматично підхопить сеанс.";
+"browser_auth.waiting" = "Очікування входу в %@… Оновлюється саме — браузеру може знадобитися до 30 секунд, щоб зберегти сеанс.";
+"browser_auth.retry" = "Спробувати ще раз";
+"browser_auth.found_sessions" = "Облікові записи, що ввійшли в цьому браузері";
+"browser_auth.no_sessions" = "У цьому браузері ще не знайдено активного сеансу.";
+"browser_auth.scanning" = "Читання сеансу браузера…";
+"browser_auth.identifying" = "Визначення облікового запису…";
+"browser_auth.unknown_account" = "Обліковий запис Claude";
+"browser_auth.used_by" = "Уже використовується профілем «%@»";
+"browser_auth.expired" = "Сеанс завершився або ви вийшли";
+"browser_auth.use" = "Використати";
+"browser_auth.no_browser" = "Не знайдено підтримуваного браузера. Aitracker читає сеанс із Vivaldi, Chrome, Brave, Edge, Arc, Opera, Chromium або Firefox.";
+"browser_auth.multi_account_hint" = "Щоб додати інший обліковий запис: у браузері натисніть замок біля адреси claude.ai → Файли cookie та дані сайтів → видаліть claude.ai. Потім натисніть «Відкрити вхід» вище й увійдіть з іншого облікового запису. Не натискайте «Вийти» на claude.ai — це від’єднає обліковий запис, уже збережений в Aitracker.";
+"browser_auth.error.keychain_denied" = "macOS не дозволила Aitracker прочитати «%@ Safe Storage» зі Зв’язки ключів, а це потрібно для розшифрування cookie браузера. Натисніть «Спробувати ще раз» і виберіть «Завжди дозволяти».";
+"browser_auth.error.keychain_missing" = "У Зв’язці ключів не знайдено ключа шифрування cookie для %@. Відкрийте браузер хоча б раз і спробуйте знову.";
+"browser_auth.error.db_unreadable" = "Не вдалося прочитати базу cookie браузера (%@).";
+"accounts.add" = "Додати обліковий запис";
+"accounts.add_description" = "Входить через ваш браузер і все налаштовує. Додавайте скільки завгодно облікових записів — вони показуються поруч на панелі меню.";
+"accounts.added" = "«%@» додано. Тепер він оновлюється разом з іншими обліковими записами.";
+"accounts.reconnected" = "«%@» знову під’єднано.";
+"general.refresh_every" = "Оновлювати кожні";
+"general.refresh_minutes" = "%d хв";
+"general.refresh_all_accounts" = "Діє для всіх облікових записів. Довші інтервали витрачають менше батареї та трафіку.";
+"accounts.title" = "Облікові записи";
+"accounts.default_name" = "Обліковий запис";
+"accounts.empty_title" = "Облікових записів ще немає";
+"accounts.empty_description" = "Додайте свої облікові записи ШІ, щоб бачити, скільки лімітів і кредитів ви використали.";
+"accounts.session" = "Ліміт на 5 годин";
+"accounts.weekly" = "Тижневий ліміт";
+"accounts.resets" = "Скидання %@";
+"accounts.updated" = "Оновлено %@";
+"accounts.loading" = "Завантаження використання…";
+"accounts.needs_reconnect" = "Від’єднано — ••• → Під’єднати знову";
+"accounts.extra_usage" = "Додаткове використання";
+"accounts.extra_available" = "Цього місяця ще доступно %@";
+"accounts.credit_balance" = "Баланс кредитів";
+"accounts.row_summary" = "5 год: %d%% · Тиждень: %d%%";
+"accounts.reconnect" = "Під’єднати знову";
+"accounts.remove" = "Видалити обліковий запис";
+"accounts.remove_confirm" = "Видалити «%@» з Aitracker?";
+"settings.preferences" = "Параметри";
+"settings.launch_at_login" = "Відкривати під час входу";
+"settings.quit" = "Вийти з Aitracker";
+"menubar_style.title" = "Панель меню";
+"menubar_style.bars" = "Облікові записи поруч";
+"menubar_style.icon" = "Лише значок";
+"menubar_style.bars_help" = "Одна смуга на обліковий запис, заповнена за тижневим використанням. Якщо 5-годинний ліміт вичерпано, смуга показує 100% (червона), бо обліковий запис зараз заблоковано. Зелена до 70%, помаранчева до 90%, червона вище.";
+"accounts.blocked_until" = "Ліміт вичерпано · знову о %@";
+"accounts.extra_left" = "Залишилося %@";
+"accounts.codex_missing" = "На цьому Mac не виконано вхід у Codex. Установіть Codex і виконайте «codex login», а потім спробуйте знову.";
+"accounts.codex_exists" = "Ваш обліковий запис ChatGPT (Codex) уже додано.";
+"accounts.kimi_missing" = "На цьому Mac не виконано вхід у Kimi Code. Установіть Kimi Code CLI і виконайте «kimi login», а потім спробуйте знову.";
+"accounts.kimi_exists" = "Ваш обліковий запис Kimi Code уже додано.";
+"accounts.kimi_expired" = "Вхід у Kimi застарів. Виконайте «kimi login» ще раз.";
+"accounts.deepseek_title" = "Додати DeepSeek";
+"accounts.deepseek_help" = "DeepSeek оплачується за використання, тому Aitracker показує передплачений баланс вашого API. Створіть ключ API на платформі DeepSeek і вставте його сюди — він зберігається у Зв’язці ключів Mac і використовується лише для читання балансу.";
+"accounts.deepseek_invalid" = "DeepSeek відхилив цей ключ API.";
+"accounts.balance_available" = "Баланс доступний";
+"accounts.balance_empty" = "Баланс вичерпано";
+"accounts.apikey_title" = "Додати %@";
+"accounts.apikey_invalid" = "Цей ключ API відхилено.";
+"accounts.credits_help" = "%@ оплачує 3D-генерації передплаченими кредитами, тому Aitracker показує ваш баланс кредитів. Створіть ключ API у своєму обліковому записі %@ і вставте його сюди — він зберігається у Зв’язці ключів Mac і використовується лише для читання балансу (безкоштовно, кредити не витрачаються).";
+"accounts.credits_amount" = "%@ кредитів";
+"accounts.credits_refill" = "щомісячні кредити поновляться %@";
+"accounts.credits_reserved" = "%@ зарезервовано поточними завданнями";
+"settings.language" = "Мова";
+"settings.language_system" = "Як у системі";
+"settings.language_restart" = "Перезапустіть Aitracker, щоб застосувати нову мову.";
+"settings.restart_now" = "Перезапустити";
+"settings.check_updates" = "Перевірити оновлення…";
+"settings.auto_updates" = "Автоматично перевіряти оновлення";

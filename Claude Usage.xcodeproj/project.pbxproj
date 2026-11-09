@@ -22,7 +22,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05CD2CB22EA985A100004C83 /* Claude Usage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Claude Usage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05CD2CB22EA985A100004C83 /* Aitracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aitracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05CD2CC02EA985A100004C83 /* Claude UsageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Claude UsageTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -71,7 +71,7 @@
 		05CD2CB32EA985A100004C83 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05CD2CB22EA985A100004C83 /* Claude Usage.app */,
+				05CD2CB22EA985A100004C83 /* Aitracker.app */,
 				05CD2CC02EA985A100004C83 /* Claude UsageTests.xctest */,
 			);
 			name = Products;
@@ -101,7 +101,7 @@
 				DYNAMICNOTCH_PRODUCT_DEP /* DynamicNotchKit */,
 			);
 			productName = "Claude Usage";
-			productReference = 05CD2CB22EA985A100004C83 /* Claude Usage.app */;
+			productReference = 05CD2CB22EA985A100004C83 /* Aitracker.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05CD2CC52EA985A100004C83 /* Claude UsageTests */ = {
@@ -161,8 +161,7 @@
 				ja,
 				ko,
 				uk,
-				"zh-ch",
-				"zh-CH",
+				"zh-Hans",
 				"zh-Hant",
 				tr,
 				vi,
@@ -353,14 +352,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Claude Usage/Resources/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Claude Usage";
+				INFOPLIST_KEY_CFBundleDisplayName = Aitracker;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -375,9 +374,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 3.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "HamedElfayome.Claude-Usage";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthfaria.Aitracker;
+				PRODUCT_MODULE_NAME = Claude_Usage;
+				PRODUCT_NAME = Aitracker;
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -400,7 +400,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Claude Usage/Claude UsageRelease.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = T77ZWDC739;
 				ENABLE_APP_SANDBOX = NO;
@@ -415,7 +415,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Claude Usage/Resources/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Claude Usage";
+				INFOPLIST_KEY_CFBundleDisplayName = Aitracker;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -430,9 +430,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 3.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "HamedElfayome.Claude-Usage";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthfaria.Aitracker;
+				PRODUCT_MODULE_NAME = Claude_Usage;
+				PRODUCT_NAME = Aitracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
@@ -458,19 +459,19 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Claude Usage/Resources/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "HamedElfayome.Claude-UsageTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthfaria.AitrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Claude Usage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Claude Usage";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aitracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Aitracker";
 			};
 			name = Debug;
 		};
@@ -479,19 +480,19 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Claude Usage/Resources/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "HamedElfayome.Claude-UsageTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthfaria.AitrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Claude Usage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Claude Usage";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aitracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Aitracker";
 			};
 			name = Release;
 		};

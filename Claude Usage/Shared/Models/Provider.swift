@@ -14,6 +14,10 @@ import Foundation
 enum Provider: String, Codable, CaseIterable, Equatable {
     case anthropic
     case codex
+    case kimi
+    case deepseek
+    case meshy
+    case tripo
 
     var descriptor: ProviderDescriptor {
         ProviderRegistry.descriptor(for: self)
